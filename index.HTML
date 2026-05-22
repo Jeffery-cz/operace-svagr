@@ -61,20 +61,23 @@
             </div>
         </div>
         
+        <!-- Desktopové Menu -->
         <nav class="hidden md:flex max-w-5xl mx-auto px-4 overflow-x-auto space-x-2 py-3">
             <button onclick="switchTab('prehled')" id="desk-btn-prehled" class="desk-tab-btn bg-rose-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg transition"><i class="fa-solid fa-gauge-high mr-2"></i>Dashboard</button>
             <button onclick="switchTab('znojmo')" id="desk-btn-znojmo" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-wine-bottle mr-2"></i>Plán A</button>
             <button onclick="switchTab('mikulov')" id="desk-btn-mikulov" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-bicycle mr-2"></i>Plán B</button>
             <button onclick="switchTab('zajeci')" id="desk-btn-zajeci" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Plán C</button>
-            <button onclick="switchTab('napady')" id="desk-btn-napady" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-comment-dots mr-2"></i>Nápady <span id="desk-db-dot" class="inline-block w-2 h-2 bg-red-500 rounded-full ml-1"></span></button>
             <button onclick="switchTab('ucast')" id="desk-btn-ucast" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-clipboard-user mr-2"></i>Prezenčka</button>
+            <button onclick="switchTab('napady')" id="desk-btn-napady" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-comment-dots mr-2"></i>Nápady <span id="desk-db-dot" class="inline-block w-2 h-2 bg-red-500 rounded-full ml-1"></span></button>
         </nav>
     </header>
 
     <main class="max-w-5xl mx-auto px-4 mt-6">
         
+        <!-- ZÁLOŽKA: PŘEHLED (DASHBOARD) -->
         <div id="prehled" class="tab-content active space-y-6">
             
+            <!-- Dlaždice -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
                 <div onclick="switchTab('znojmo')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-rose-500/10 flex items-center justify-center mb-3 group-hover:bg-rose-500/20 transition">
@@ -92,6 +95,14 @@
                     <span class="text-xs text-zinc-400 mt-1">Kola & No.292</span>
                 </div>
 
+                <div onclick="switchTab('zajeci')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-orange-500/10 flex items-center justify-center mb-3 group-hover:bg-orange-500/20 transition">
+                        <i class="fa-solid fa-clock-rotate-left text-orange-400 text-xl md:text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-sm md:text-base text-zinc-100">Plán C: Zaječí</h3>
+                    <span class="text-xs text-orange-400 mt-1">Už tam byl</span>
+                </div>
+
                 <div onclick="switchTab('napady')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group relative">
                     <span id="tile-db-dot" class="absolute top-3 right-3 w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_5px_rgba(239,68,68,0.8)]"></span>
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center mb-3 group-hover:bg-amber-500/20 transition">
@@ -99,14 +110,6 @@
                     </div>
                     <h3 class="font-bold text-sm md:text-base text-zinc-100">Tipy a nápady</h3>
                     <span class="text-xs text-zinc-400 mt-1">Chat & Úkoly</span>
-                </div>
-
-                <div onclick="switchTab('zajeci')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
-                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-orange-500/10 flex items-center justify-center mb-3 group-hover:bg-orange-500/20 transition">
-                        <i class="fa-solid fa-clock-rotate-left text-orange-400 text-xl md:text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-sm md:text-base text-zinc-100">Plán C: Zaječí</h3>
-                    <span class="text-xs text-orange-400 mt-1">Už tam byl</span>
                 </div>
             </div>
 
@@ -140,14 +143,6 @@
         </div>
 
         <!-- ZÁLOŽKA: PLÁN A - ZNOJMO -->
-                    <span class="bg-zinc-800 border border-zinc-700 px-3 py-1.5 rounded-lg text-zinc-200">💊 2x Ibalgin</span>
-                    <span class="bg-zinc-800 border border-zinc-700 px-3 py-1.5 rounded-lg text-zinc-200">🥤 Vyprošťovák šumák</span>
-                    <span class="bg-zinc-800 border border-zinc-700 px-3 py-1.5 rounded-lg text-zinc-200">🍬 Žvýkačky</span>
-                    <span class="bg-zinc-800 border border-zinc-700 px-3 py-1.5 rounded-lg text-zinc-200">⚡ Hroznový cukr</span>
-                </div>
-            </div>
-        </div>
-
         <div id="znojmo" class="tab-content space-y-6">
             <div class="glass-panel p-5 border-l-4 border-rose-500 mb-6 bg-rose-950/20">
                 <h2 class="text-xl font-bold text-rose-400">Plán A: Znojmo (Adrenalin & Moderní klub)</h2>
@@ -198,6 +193,7 @@
             </div>
         </div>
 
+        <!-- ZÁLOŽKA: PLÁN B - MIKULOV -->
         <div id="mikulov" class="tab-content space-y-6">
             <div class="glass-panel p-5 border-l-4 border-purple-500 mb-6 bg-purple-950/20">
                 <h2 class="text-xl font-bold text-purple-400">Plán B: Mikulov (Kola & Underground)</h2>
@@ -291,29 +287,7 @@
             </div>
         </div>
 
-        <div id="napady" class="tab-content space-y-6">
-            <div class="glass-panel p-6">
-                <div class="flex justify-between items-center mb-6 border-b border-zinc-700 pb-4">
-                    <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-fire text-amber-500 mr-2"></i>Nástěnka nápadů</h2>
-                    <span id="db-status-text" class="text-xs font-mono px-3 py-1 rounded-full bg-zinc-800 text-red-400 border border-zinc-700"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Připojuji...</span>
-                </div>
-                
-                <p class="text-sm text-zinc-400 mb-6">Házejte sem cokoliv: jaký alkohol nakoupit, úkoly pro ženicha na večer do klubu, nebo kdo vezme reprák.</p>
-
-                <form id="idea-form" class="flex flex-col md:flex-row gap-3 mb-8">
-                    <input type="text" id="author-input" placeholder="Tvé jméno..." class="px-4 py-3 bg-zinc-900/80 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition md:w-1/4 placeholder-zinc-600 shadow-inner" required>
-                    <input type="text" id="idea-input" placeholder="Tvůj nápad..." class="px-4 py-3 bg-zinc-900/80 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition md:w-3/4 placeholder-zinc-600 shadow-inner" required>
-                    <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white px-8 py-3 rounded-xl font-bold transition shadow-[0_0_15px_rgba(225,29,72,0.4)] whitespace-nowrap"><i class="fa-solid fa-paper-plane mr-2"></i>Odeslat</button>
-                </form>
-
-                <div id="ideas-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
-                    <div class="text-center text-zinc-500 py-8" id="ideas-loading">
-                        <i class="fa-solid fa-satellite-dish text-2xl mb-2"></i><br>Lovím nápady z cloudu...
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <!-- ZÁLOŽKA: PREZENČKA (ÚČAST) -->
         <div id="ucast" class="tab-content space-y-6">
             <div class="glass-panel p-6 border-l-4 border-emerald-500 bg-emerald-950/10 flex flex-col">
                 <h2 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-clipboard-user text-emerald-400 mr-2"></i>Prezenčka: Kdo fakt jede?</h2>
@@ -348,32 +322,62 @@
                 </div>
             </div>
         </div>
+
+        <!-- ZÁLOŽKA: TIPY A NÁPADY (FIREBASE) -->
+        <div id="napady" class="tab-content space-y-6">
+            <div class="glass-panel p-6">
+                <div class="flex justify-between items-center mb-6 border-b border-zinc-700 pb-4">
+                    <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-fire text-amber-500 mr-2"></i>Nástěnka nápadů</h2>
+                    <span id="db-status-text" class="text-xs font-mono px-3 py-1 rounded-full bg-zinc-800 text-red-400 border border-zinc-700"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Připojuji...</span>
+                </div>
+                
+                <p class="text-sm text-zinc-400 mb-6">Házejte sem cokoliv: jaký alkohol nakoupit, úkoly pro ženicha na večer do klubu, nebo kdo vezme reprák.</p>
+
+                <form id="idea-form" class="flex flex-col md:flex-row gap-3 mb-8">
+                    <input type="text" id="author-input" placeholder="Tvé jméno..." class="px-4 py-3 bg-zinc-900/80 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition md:w-1/4 placeholder-zinc-600 shadow-inner" required>
+                    <input type="text" id="idea-input" placeholder="Tvůj nápad..." class="px-4 py-3 bg-zinc-900/80 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition md:w-3/4 placeholder-zinc-600 shadow-inner" required>
+                    <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white px-8 py-3 rounded-xl font-bold transition shadow-[0_0_15px_rgba(225,29,72,0.4)] whitespace-nowrap"><i class="fa-solid fa-paper-plane mr-2"></i>Odeslat</button>
+                </form>
+
+                <div id="ideas-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                    <div class="text-center text-zinc-500 py-8" id="ideas-loading">
+                        <i class="fa-solid fa-satellite-dish text-2xl mb-2"></i><br>Lovím nápady z cloudu...
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t border-zinc-800 flex justify-around items-center pb-safe pt-2 z-50 px-2 shadow-[0_-10px_20px_rgba(0,0,0,0.5)]">
-        <button onclick="switchTab('prehled')" id="mob-btn-prehled" class="mob-tab-btn flex-1 flex flex-col items-center py-2 text-rose-500 transition duration-200">
+    <!-- Mobilní spodní navigace -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t border-zinc-800 flex justify-between items-center pb-safe pt-2 z-50 px-1 shadow-[0_-10px_20px_rgba(0,0,0,0.5)] overflow-x-auto">
+        <button onclick="switchTab('prehled')" id="mob-btn-prehled" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-rose-500 transition duration-200 min-w-[55px]">
             <i class="fa-solid fa-gauge-high text-xl mb-1"></i>
             <span class="text-[10px] font-bold">Domů</span>
         </button>
-        <button onclick="switchTab('znojmo')" id="mob-btn-znojmo" class="mob-tab-btn flex-1 flex flex-col items-center py-2 text-zinc-500 hover:text-zinc-300 transition duration-200">
+        <button onclick="switchTab('znojmo')" id="mob-btn-znojmo" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
             <i class="fa-solid fa-wine-bottle text-xl mb-1"></i>
             <span class="text-[10px] font-bold">Plán A</span>
         </button>
-        <button onclick="switchTab('mikulov')" id="mob-btn-mikulov" class="mob-tab-btn flex-1 flex flex-col items-center py-2 text-zinc-500 hover:text-zinc-300 transition duration-200">
+        <button onclick="switchTab('mikulov')" id="mob-btn-mikulov" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
             <i class="fa-solid fa-bicycle text-xl mb-1"></i>
             <span class="text-[10px] font-bold">Plán B</span>
         </button>
-        <button onclick="switchTab('napady')" id="mob-btn-napady" class="mob-tab-btn flex-1 flex flex-col items-center py-2 text-zinc-500 hover:text-zinc-300 transition duration-200 relative">
-            <span id="mob-db-dot" class="absolute top-1 right-3 w-2 h-2 bg-red-500 rounded-full"></span>
-            <i class="fa-solid fa-comment-dots text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Nápady</span>
+        <button onclick="switchTab('zajeci')" id="mob-btn-zajeci" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
+            <i class="fa-solid fa-clock-rotate-left text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">Plán C</span>
         </button>
-        <button onclick="switchTab('ucast')" id="mob-btn-ucast" class="mob-tab-btn flex-1 flex flex-col items-center py-2 text-zinc-500 hover:text-zinc-300 transition duration-200">
+        <button onclick="switchTab('ucast')" id="mob-btn-ucast" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
             <i class="fa-solid fa-clipboard-user text-xl mb-1"></i>
             <span class="text-[10px] font-bold">Účast</span>
         </button>
+        <button onclick="switchTab('napady')" id="mob-btn-napady" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 relative min-w-[55px]">
+            <span id="mob-db-dot" class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+            <i class="fa-solid fa-comment-dots text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">Nápady</span>
+        </button>
     </nav>
 
+    <!-- FIREBASE & APP LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -591,7 +595,7 @@
                 el.className = 'desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition';
             });
             document.querySelectorAll('.mob-tab-btn').forEach(el => {
-                el.className = 'mob-tab-btn flex-1 flex flex-col items-center py-2 text-zinc-500 hover:text-zinc-300 transition duration-200';
+                el.className = 'mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]';
             });
             
             document.getElementById(tabId).classList.add('active');
