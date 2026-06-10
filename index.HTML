@@ -61,7 +61,6 @@
             </div>
         </div>
         
-        <!-- Desktopové Menu -->
         <nav class="hidden md:flex max-w-5xl mx-auto px-4 overflow-x-auto space-x-2 py-3">
             <button onclick="switchTab('prehled')" id="desk-btn-prehled" class="desk-tab-btn bg-rose-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg transition"><i class="fa-solid fa-gauge-high mr-2"></i>Dashboard</button>
             <button onclick="switchTab('znojmo')" id="desk-btn-znojmo" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-wine-bottle mr-2"></i>Plán A</button>
@@ -74,10 +73,8 @@
 
     <main class="max-w-5xl mx-auto px-4 mt-6">
         
-        <!-- ZÁLOŽKA: PŘEHLED (DASHBOARD) -->
         <div id="prehled" class="tab-content active space-y-6">
             
-            <!-- Dlaždice -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
                 <div onclick="switchTab('znojmo')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-rose-500/10 flex items-center justify-center mb-3 group-hover:bg-rose-500/20 transition">
@@ -113,17 +110,35 @@
                 </div>
             </div>
 
-            <!-- Informace a Checklist -->
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-panel p-6 border-l-4 border-rose-600 relative overflow-hidden">
                     <i class="fa-solid fa-wine-glass-empty absolute -right-4 -bottom-4 text-9xl text-white/5 rotate-12"></i>
-                    <h2 class="text-xl font-bold mb-4 text-white relative z-10">Brífink k akci</h2>
+                    <h2 class="text-xl font-bold mb-4 text-white relative z-10">Termín akce</h2>
                     <div class="space-y-3 text-zinc-300 text-sm relative z-10">
-                        <p><strong class="text-rose-400"><i class="fa-solid fa-calendar-days w-5"></i> Termín:</strong> 10. 7. – 12. 7. 2026</p>
-                        <p><strong class="text-rose-400"><i class="fa-solid fa-user-tie w-5"></i> Ženich:</strong> Honza</p>
-                        <p><strong class="text-rose-400"><i class="fa-solid fa-users w-5"></i> Útočníci:</strong> 10 chlapů</p>
+                        <p class="text-lg font-semibold text-rose-400"><i class="fa-solid fa-calendar-days w-5"></i> 10. 7. – 12. 7. 2026</p>
+                        <p><strong class="text-zinc-200"><i class="fa-solid fa-user-tie text-rose-400 w-5"></i> Ženich:</strong> Honza</p>
+                        <p><strong class="text-zinc-200"><i class="fa-solid fa-users text-rose-400 w-5"></i> Útočníci:</strong> 10 chlapů</p>
+                        
+                        <div class="mt-5 p-4 bg-amber-950/30 rounded-xl border border-amber-500/30 shadow-inner">
+                            <p class="text-sm text-amber-400 mb-3"><i class="fa-solid fa-comments mr-2"></i><strong>Poznámka k diskuzi: Jak to pojmeme?</strong></p>
+                            <ul class="space-y-2 text-zinc-300">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-fire text-rose-500 mt-1 mr-2 text-xs"></i>
+                                    <span><strong>Pátek až neděle:</strong> Plnohodnotná víkendová akce (alkohol + párty na max).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-bolt text-amber-500 mt-1 mr-2 text-xs"></i>
+                                    <span><strong>Pátek až sobota:</strong> Jednorázová rychlovka (v sobotu jedeme domů).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-moon text-blue-400 mt-1 mr-2 text-xs"></i>
+                                    <span><strong>Sobota až neděle:</strong> Druhá varianta jednorázovky (v neděli jedeme domů).</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
                         <div class="mt-4 p-3 bg-zinc-900/60 rounded-lg border border-zinc-700/50">
-                            <p class="text-xs text-zinc-400"><i class="fa-solid fa-circle-exclamation text-amber-500 mr-1"></i> <strong>Cíl:</strong> Vybrat finální lokaci. Doprava výhradně vlakem, ať pijeme všichni.</p>
+                            <p class="text-xs text-zinc-400"><i class="fa-solid fa-circle-exclamation text-amber-500 mr-1"></i> <strong>Cíl:</strong> Vybrat finální lokaci a dohodnout rozsah akce. Doprava výhradně vlakem, ať pijeme všichni.</p>
                         </div>
                     </div>
                 </div>
@@ -131,9 +146,9 @@
                 <div class="glass-panel p-6 border-l-4 border-emerald-500">
                     <h3 class="text-lg font-bold mb-4 text-white"><i class="fa-solid fa-list-check text-emerald-400 mr-2"></i> Úkoly před akcí</h3>
                     <ul class="space-y-3 text-zinc-300">
-                        <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Datum akce</span></label></li>
+                        <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Rozhodnout formát (víkend vs. noc)</span></label></li>
                         <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Kdo pojede - potvrzení účasti</span></label></li>
-                        <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Kam se pojede</span></label></li>
+                        <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Kam se pojede (Výběr plánu)</span></label></li>
                         <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Styl dopravy (vlak / auto)</span></label></li>
                         <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Rezervace ubytování</span></label></li>
                         <li><label class="flex items-center cursor-pointer group"><input type="checkbox" class="mr-3 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-zinc-900 transition"><span class="group-hover:text-white transition">Rezervace klubu</span></label></li>
@@ -142,7 +157,6 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: PLÁN A - ZNOJMO -->
         <div id="znojmo" class="tab-content space-y-6">
             <div class="glass-panel p-5 border-l-4 border-rose-500 mb-6 bg-rose-950/20">
                 <h2 class="text-xl font-bold text-rose-400">Plán A: Znojmo (Adrenalin & Moderní klub)</h2>
@@ -193,7 +207,6 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: PLÁN B - MIKULOV -->
         <div id="mikulov" class="tab-content space-y-6">
             <div class="glass-panel p-5 border-l-4 border-purple-500 mb-6 bg-purple-950/20">
                 <h2 class="text-xl font-bold text-purple-400">Plán B: Mikulov (Kola & Underground)</h2>
@@ -243,7 +256,6 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: PLÁN C - ZAJEČÍ -->
         <div id="zajeci" class="tab-content space-y-6">
             <div class="glass-panel p-5 border-l-4 border-orange-500 mb-6 bg-orange-950/20">
                 <h2 class="text-xl font-bold text-orange-400">Plán C: Zaječí (Záloha)</h2>
@@ -287,7 +299,6 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: PREZENČKA (ÚČAST) -->
         <div id="ucast" class="tab-content space-y-6">
             <div class="glass-panel p-6 border-l-4 border-emerald-500 bg-emerald-950/10 flex flex-col">
                 <h2 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-clipboard-user text-emerald-400 mr-2"></i>Prezenčka: Kdo fakt jede?</h2>
@@ -323,7 +334,6 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: TIPY A NÁPADY (FIREBASE) -->
         <div id="napady" class="tab-content space-y-6">
             <div class="glass-panel p-6">
                 <div class="flex justify-between items-center mb-6 border-b border-zinc-700 pb-4">
@@ -348,7 +358,6 @@
         </div>
     </main>
 
-    <!-- Mobilní spodní navigace -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t border-zinc-800 flex justify-between items-center pb-safe pt-2 z-50 px-1 shadow-[0_-10px_20px_rgba(0,0,0,0.5)] overflow-x-auto">
         <button onclick="switchTab('prehled')" id="mob-btn-prehled" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-rose-500 transition duration-200 min-w-[55px]">
             <i class="fa-solid fa-gauge-high text-xl mb-1"></i>
@@ -377,7 +386,6 @@
         </button>
     </nav>
 
-    <!-- FIREBASE & APP LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
