@@ -17,6 +17,10 @@
         
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .sub-tab-content { display: none; }
+        .sub-tab-content.active { display: block; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         /* Efekt tmavého mléčného skla */
@@ -47,6 +51,9 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="antialiased min-h-screen pb-24 md:pb-12">
@@ -66,9 +73,7 @@
             <button onclick="switchTab('prehled')" id="desk-btn-prehled" class="desk-tab-btn bg-rose-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg transition"><i class="fa-solid fa-gauge-high mr-2"></i>Dashboard</button>
             <button onclick="switchTab('ucast')" id="desk-btn-ucast" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-clipboard-user mr-2"></i>Prezenčka</button>
             <button onclick="switchTab('anketa')" id="desk-btn-anketa" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-square-poll-vertical mr-2"></i>Anketa</button>
-            <button onclick="switchTab('znojmo')" id="desk-btn-znojmo" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-wine-bottle mr-2"></i>Plán A</button>
-            <button onclick="switchTab('mikulov')" id="desk-btn-mikulov" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-bicycle mr-2"></i>Plán B</button>
-            <button onclick="switchTab('zajeci')" id="desk-btn-zajeci" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Plán C</button>
+            <button onclick="switchTab('plany')" id="desk-btn-plany" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-map-location-dot mr-2"></i>Plány</button>
             <button onclick="switchTab('napady')" id="desk-btn-napady" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-comment-dots mr-2"></i>Nápady <span id="desk-db-dot" class="inline-block w-2 h-2 bg-red-500 rounded-full ml-1"></span></button>
         </nav>
     </header>
@@ -96,12 +101,12 @@
                     <span class="text-xs text-blue-400 mt-1">Hlasování</span>
                 </div>
 
-                <div onclick="switchTab('znojmo')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
+                <div onclick="switchTab('plany')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-rose-500/10 flex items-center justify-center mb-3 group-hover:bg-rose-500/20 transition">
-                        <i class="fa-solid fa-dungeon text-rose-400 text-xl md:text-2xl"></i>
+                        <i class="fa-solid fa-map-location-dot text-rose-400 text-xl md:text-2xl"></i>
                     </div>
                     <h3 class="font-bold text-sm md:text-base text-zinc-100">Lokace</h3>
-                    <span class="text-xs text-zinc-400 mt-1">Výběr plánu</span>
+                    <span class="text-xs text-zinc-400 mt-1">Výběr plánů</span>
                 </div>
 
                 <div onclick="switchTab('napady')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group relative">
@@ -151,14 +156,11 @@
                     </div>
                 </div>
 
-                <!-- Dynamické úkoly -->
                 <div class="glass-panel p-6 border-l-4 border-emerald-500 flex flex-col">
                     <h3 class="text-lg font-bold mb-4 text-white"><i class="fa-solid fa-list-check text-emerald-400 mr-2"></i> Úkoly před akcí</h3>
-                    
                     <ul id="tasks-list" class="space-y-2 text-zinc-300 mb-4 flex-1 overflow-y-auto pr-2 max-h-[300px]">
                         <li class="text-center text-sm text-zinc-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Načítám úkoly...</li>
                     </ul>
-
                     <form id="add-task-form" class="mt-auto pt-4 border-t border-zinc-700 flex gap-2">
                         <input type="text" id="new-task-input" placeholder="Nový úkol..." class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-emerald-500 text-sm placeholder-zinc-500" required>
                         <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-lg transition"><i class="fa-solid fa-plus"></i></button>
@@ -167,33 +169,230 @@
             </div>
         </div>
 
+        <!-- ZÁLOŽKA: PLÁNY LOKACÍ (Nová sjednocená záložka) -->
+        <div id="plany" class="tab-content space-y-6">
+            
+            <!-- Navigace mezi plány -->
+            <div class="glass-panel p-3 flex overflow-x-auto gap-2 scrollbar-hide border-b border-zinc-700/50">
+                <button onclick="switchSubTab('sub-zajeci')" id="btn-sub-zajeci" class="sub-tab-btn bg-orange-600 text-white shadow-md px-5 py-2.5 rounded-lg text-sm font-bold whitespace-nowrap transition"><i class="fa-solid fa-wine-glass mr-2"></i>Plán A: Zaječí</button>
+                <button onclick="switchSubTab('sub-znojmo')" id="btn-sub-znojmo" class="sub-tab-btn bg-zinc-800/80 text-zinc-400 hover:text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap"><i class="fa-solid fa-dungeon mr-2"></i>Plán B: Znojmo</button>
+                <button onclick="switchSubTab('sub-mikulov')" id="btn-sub-mikulov" class="sub-tab-btn bg-zinc-800/80 text-zinc-400 hover:text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap"><i class="fa-solid fa-bicycle mr-2"></i>Plán C: Mikulov</button>
+                <button onclick="switchSubTab('sub-praha')" id="btn-sub-praha" class="sub-tab-btn bg-zinc-800/80 text-zinc-400 hover:text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap"><i class="fa-solid fa-city mr-2"></i>Plán D: Praha</button>
+            </div>
+
+            <!-- SUB-TAB: PLÁN A - ZAJEČÍ -->
+            <div id="sub-zajeci" class="sub-tab-content active space-y-6">
+                <div class="glass-panel p-5 border-l-4 border-orange-500 bg-orange-950/20">
+                    <h2 class="text-xl font-bold text-orange-400">Plán A: Zaječí (Vinařství & Retro Club)</h2>
+                    <p class="text-zinc-200 mt-2 text-sm leading-relaxed">
+                        <strong class="text-emerald-400 uppercase text-xs tracking-wider border border-emerald-500/50 px-2 py-0.5 rounded mr-1">Změna & Oprava</strong> 
+                        Zjištěno, že Honza tu na rozlučce vlastně <strong class="text-white">nebyl</strong>! Tím pádem to nepřichází o moment překvapení a stává se z toho top volba na jistotu.
+                    </p>
+                </div>
+
+                <div class="glass-panel rounded-2xl overflow-hidden shadow-lg shadow-orange-500/10">
+                    <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <h2 class="text-3xl font-bold text-white">Retro Music Club Zaječí</h2>
+                            <span class="text-orange-400 font-semibold drop-shadow-md">Vinařství U Kapličky</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-gray-300 mb-6 text-sm">Ideální kombinace ubytování, špičkového vína a plnohodnotného klubu přímo na jednom místě. Nemusíme řešit noční přejezdy a taxíky.</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-zinc-800/80 p-3 rounded-xl text-center border border-zinc-700">
+                                    <i class="fa-solid fa-clock text-gray-400 text-xl mb-1"></i>
+                                    <div class="text-[10px] text-gray-400 uppercase">Otvíračka</div>
+                                    <div class="font-bold text-sm">Pá & So od 21:00</div>
+                                </div>
+                                <div class="bg-zinc-800/80 p-3 rounded-xl text-center border border-zinc-700">
+                                    <i class="fa-solid fa-couch text-amber-500 text-xl mb-1"></i>
+                                    <div class="text-[10px] text-gray-400 uppercase">VIP Box</div>
+                                    <div class="font-bold text-sm">Nutná rezervace</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GPS & Adresa Block -->
+                        <div class="bg-zinc-900/80 border border-zinc-700 p-5 rounded-xl space-y-4 shadow-inner">
+                            <div>
+                                <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                                <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-orange-500 w-6"></i> Vinařská 484, 691 05 Zaječí</p>
+                                <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8787094N, 16.7634469E</p>
+                            </div>
+                            <div class="pt-2 border-t border-zinc-700">
+                                <a href="https://mapy.cz/zakladni?q=Vina%C5%99stv%C3%AD%20U%20Kapli%C4%8Dky%20Zaje%C4%8D%C3%AD" target="_blank" class="flex justify-center items-center px-4 py-2.5 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold shadow-[0_0_10px_rgba(29,170,42,0.3)]">
+                                    <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB: PLÁN B - ZNOJMO -->
+            <div id="sub-znojmo" class="sub-tab-content space-y-6">
+                <div class="glass-panel p-5 border-l-4 border-rose-500 bg-rose-950/20">
+                    <h2 class="text-xl font-bold text-rose-400">Plán B: Znojmo (Adrenalin & Moderní klub)</h2>
+                    <p class="text-zinc-300 mt-1 text-sm">Ideální mix fyzické výzvy (podzemí) a velké noční párty ve městě (Enotéka + Wasabi).</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6">
+                        <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Denní mise</h3>
+                        <ul class="space-y-5">
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
+                                    <i class="fa-solid fa-helmet-safety text-amber-500"></i>
+                                </div>
+                                <div>
+                                    <strong class="block text-zinc-100">14:00 - Adrenalinové Podzemí</strong>
+                                    <span class="text-sm text-zinc-400 block mt-1">Žádná nuda. Neopreny, voda, čelovky, úzké chodby. Max. pro 10 lidí.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
+                                    <i class="fa-solid fa-robot text-rose-500"></i>
+                                </div>
+                                <div>
+                                    <strong class="block text-zinc-100">17:00 - Enotéka (Výčep vína)</strong>
+                                    <span class="text-sm text-zinc-400 block mt-1">Dostaneme čipové karty na 1500,- a sami si čepujeme z automatů!</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-panel p-6">
+                        <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Noční cíl: Wasabi Club</h3>
+                        <p class="text-sm text-zinc-400 mb-4">Největší multižánrový klub ve Znojmě. Skvělý zvuk, Djs, a vezmeme VIP box.</p>
+                        
+                        <!-- GPS & Adresa Block -->
+                        <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
+                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-rose-500 w-6"></i> Kovářská 11, 669 02 Znojmo</p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8553642N, 16.0506861E</p>
+                            <div class="pt-2 border-t border-zinc-700/50 mt-2">
+                                <a href="https://mapy.cz/zakladni?q=Kov%C3%A1%C5%99sk%C3%A1%2011%2C%20Znojmo" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
+                                    <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB: PLÁN C - MIKULOV -->
+            <div id="sub-mikulov" class="sub-tab-content space-y-6">
+                <div class="glass-panel p-5 border-l-4 border-purple-500 bg-purple-950/20">
+                    <h2 class="text-xl font-bold text-purple-400">Plán C: Mikulov (Kola & Underground)</h2>
+                    <p class="text-zinc-300 mt-1 text-sm">Klasická moravská atmosféra (Pálava, sklep, cimbál) zakončená klubem u zámku.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6">
+                        <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Denní mise</h3>
+                        <ul class="space-y-5">
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
+                                    <i class="fa-solid fa-bolt text-amber-400"></i>
+                                </div>
+                                <div>
+                                    <strong class="block text-zinc-100">11:00 - Útok na E-kolech</strong>
+                                    <span class="text-sm text-zinc-400 block mt-1">Projedeme Pálavu bez propocených triček. Kola nám půjčí.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
+                                    <i class="fa-solid fa-music text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <strong class="block text-zinc-100">16:00 - Sklep & Koryta jídla</strong>
+                                    <span class="text-sm text-zinc-400 block mt-1">Zavřeme se u Volaříka (nebo jinde). Maso, víno a cimbálovka jen pro nás.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-panel p-6">
+                        <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Noční cíl: Club No.292</h3>
+                        <p class="text-sm text-zinc-400 mb-4">Klub spojující tradiční vinný sklep (nahoře) s moderním betonovým techno parketem (dole).</p>
+                        
+                        <!-- GPS & Adresa Block -->
+                        <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
+                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-purple-500 w-6"></i> Náměstí 29/2, 692 01 Mikulov</p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8074317N, 16.6375089E</p>
+                            <div class="pt-2 border-t border-zinc-700/50 mt-2">
+                                <a href="https://mapy.cz/zakladni?q=N%C3%A1m%C4%9Bst%C3%AD%2029%2F2%2C%20Mikulov" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
+                                    <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB: PLÁN D - PRAHA -->
+            <div id="sub-praha" class="sub-tab-content space-y-6">
+                <div class="glass-panel p-5 border-l-4 border-red-500 bg-red-950/20">
+                    <h2 class="text-xl font-bold text-red-400">Plán D: Nahulváta do Prahy</h2>
+                    <p class="text-zinc-300 mt-1 text-sm">Žádné velké plánování. Sedneme na vlak, dojedeme do centra Prahy a vletíme do víru velkoměsta (např. Dlouhá ulice).</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6 flex flex-col justify-center relative overflow-hidden">
+                        <i class="fa-solid fa-comment-dots absolute -right-6 -bottom-6 text-9xl text-white/5"></i>
+                        <h3 class="text-lg font-bold mb-3 text-red-400 border-b border-red-900/50 pb-2"><i class="fa-solid fa-bullhorn mr-2"></i>Komentář / Zhodnocení</h3>
+                        <p class="text-sm text-zinc-300 leading-relaxed relative z-10">
+                            <strong>Můj osobní názor:</strong> Myslím si, že Honza, coby požitkář, který má rád klid a dobrou partu, mnohem více ocení tu naši klasiku na Moravě (dobré víno, maso, sklep), než stres a pražský blázinec narvaný turisty. Zvažte to. Ale jako možnost to tu je.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6">
+                        <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Cíl úderu: Dlouhá ulice</h3>
+                        <p class="text-sm text-zinc-400 mb-4">Epicentrum nočního života. Jeden klub vedle druhého (Roxy, Harley's, Epic kousek vedle).</p>
+                        
+                        <!-- GPS & Adresa Block -->
+                        <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
+                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-red-500 w-6"></i> Dlouhá ulice, Praha 1</p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 50.0903828N, 14.4251642E</p>
+                            <div class="pt-2 border-t border-zinc-700/50 mt-2">
+                                <a href="https://mapy.cz/zakladni?q=Dlouh%C3%A1%20ulice%2C%20Praha" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
+                                    <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ZÁLOŽKA: PREZENČKA A ANKETA (Zkráceno, kód zůstává beze změn) -->
         <!-- ZÁLOŽKA: PREZENČKA (ÚČAST) -->
         <div id="ucast" class="tab-content space-y-6">
             <div class="glass-panel p-6 border-l-4 border-emerald-500 bg-emerald-950/10 flex flex-col">
                 <h2 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-clipboard-user text-emerald-400 mr-2"></i>Prezenčka: Kdo fakt jede?</h2>
-                
                 <div class="flex flex-col gap-6">
                     <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-700/50">
                         <form id="attendance-form" class="space-y-3">
                             <div class="flex flex-col sm:flex-row gap-3">
-                                <select id="att-name" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-emerald-500 text-sm" required>
-                                    <option value="" disabled selected>Vyber své jméno...</option>
-                                </select>
+                                <select id="att-name" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-emerald-500 text-sm" required><option value="" disabled selected>Vyber své jméno...</option></select>
                                 <select id="att-status" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-emerald-500 text-sm" required>
                                     <option value="" disabled selected>Zúčastním se?</option>
-                                    <option value="ano">Ano, jedu!</option>
-                                    <option value="ne">Nedávám to (Nejedu)</option>
+                                    <option value="ano">Ano, jedu!</option><option value="ne">Nedávám to (Nejedu)</option>
                                 </select>
                             </div>
                             <div class="flex flex-col sm:flex-row gap-3">
                                 <input type="text" id="att-note" placeholder="Poznámka (volitelné)..." class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-emerald-500 text-sm placeholder-zinc-500">
-                                <button type="submit" class="sm:w-auto w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2 rounded-lg transition shadow-[0_0_10px_rgba(16,185,129,0.2)] text-sm">
-                                    Potvrdit Účast
-                                </button>
+                                <button type="submit" class="sm:w-auto w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2 rounded-lg transition shadow-[0_0_10px_rgba(16,185,129,0.2)] text-sm">Potvrdit Účast</button>
                             </div>
                         </form>
                     </div>
-
                     <div class="bg-zinc-900/40 p-4 rounded-xl border border-zinc-700/30">
                         <div id="attendance-list" class="grid sm:grid-cols-2 gap-3">
                             <div class="text-center text-zinc-500 text-sm py-4 col-span-2"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Načítám prezenčku...</div>
@@ -216,8 +415,7 @@
                         <i class="fa-solid fa-stopwatch mr-1"></i>Hlasovat do: ...
                     </span>
                 </div>
-
-                <!-- Editor ankety (skrytý ve výchozím stavu) -->
+                <!-- Editor ankety -->
                 <div id="poll-edit-panel" class="hidden mb-6 bg-zinc-900/80 p-5 rounded-xl border border-zinc-600 shadow-inner">
                     <h3 class="text-white font-bold mb-3 border-b border-zinc-700 pb-2"><i class="fa-solid fa-pen-to-square mr-2"></i>Upravit Anketu</h3>
                     <div class="grid sm:grid-cols-2 gap-4 mb-4">
@@ -231,9 +429,7 @@
                         </div>
                     </div>
                     <label class="text-xs text-zinc-400 mb-1 block">Možnosti hlasování</label>
-                    <div id="ep-options-list" class="space-y-2 mb-3">
-                        <!-- Dynamické inputy možností -->
-                    </div>
+                    <div id="ep-options-list" class="space-y-2 mb-3"></div>
                     <button id="ep-add-opt" class="text-emerald-400 text-sm hover:text-emerald-300 font-semibold mb-4"><i class="fa-solid fa-plus mr-1"></i> Přidat další možnost</button>
                     
                     <div class="flex gap-3">
@@ -244,24 +440,15 @@
                 </div>
                 
                 <div class="flex flex-col gap-6">
-                    <!-- Hlasovací formulář -->
                     <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-700/50">
                         <form id="poll-form" class="space-y-3">
                             <div class="flex flex-col sm:flex-row gap-3">
-                                <select id="poll-name" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required>
-                                    <option value="" disabled selected>Kdo jsi?</option>
-                                </select>
-                                <select id="poll-vote" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required>
-                                    <option value="" disabled selected>Načítám možnosti...</option>
-                                </select>
-                                <button type="submit" class="sm:w-auto w-full bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2 rounded-lg transition shadow-[0_0_10px_rgba(37,99,235,0.2)] text-sm whitespace-nowrap">
-                                    Odeslat Hlas
-                                </button>
+                                <select id="poll-name" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required><option value="" disabled selected>Kdo jsi?</option></select>
+                                <select id="poll-vote" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required><option value="" disabled selected>Načítám možnosti...</option></select>
+                                <button type="submit" class="sm:w-auto w-full bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2 rounded-lg transition shadow-[0_0_10px_rgba(37,99,235,0.2)] text-sm whitespace-nowrap">Odeslat Hlas</button>
                             </div>
                         </form>
                     </div>
-
-                    <!-- Výsledky dynamicky generované -->
                     <div id="poll-results-container" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <div class="text-center text-zinc-500 text-sm py-4 col-span-full"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Načítám výsledky...</div>
                     </div>
@@ -269,171 +456,20 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: PLÁN A - ZNOJMO -->
-        <div id="znojmo" class="tab-content space-y-6">
-            <div class="glass-panel p-5 border-l-4 border-rose-500 mb-6 bg-rose-950/20">
-                <h2 class="text-xl font-bold text-rose-400">Plán A: Znojmo (Adrenalin & Moderní klub)</h2>
-                <p class="text-zinc-300 mt-1 text-sm">Ideální mix fyzické výzvy (podzemí) a velké noční párty ve městě (Enotéka + Wasabi).</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Denní mise</h3>
-                    <ul class="space-y-5">
-                        <li class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                <i class="fa-solid fa-helmet-safety text-amber-500"></i>
-                            </div>
-                            <div>
-                                <strong class="block text-zinc-100">14:00 - Adrenalinové Podzemí</strong>
-                                <span class="text-sm text-zinc-400 block mt-1">Žádná nuda. Neopreny, voda, čelovky, úzké chodby. Max. pro 10 lidí.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                <i class="fa-solid fa-robot text-rose-500"></i>
-                            </div>
-                            <div>
-                                <strong class="block text-zinc-100">17:00 - Enotéka (Výčep vína)</strong>
-                                <span class="text-sm text-zinc-400 block mt-1">Dostaneme čipové karty na 1500,- a sami si čepujeme z automatů!</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Noční cíl: Wasabi Club</h3>
-                    <p class="text-sm text-zinc-400 mb-4">Největší multižánrový klub ve Znojmě. Skvělý zvuk, Djs, a vezmeme VIP box.</p>
-                    
-                    <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl text-sm space-y-3">
-                        <p class="flex items-center text-zinc-300"><i class="fa-solid fa-location-dot text-rose-500 w-6"></i> Kovářská 11, Znojmo</p>
-                        <p class="flex items-center text-zinc-300"><i class="fa-solid fa-clock text-blue-400 w-6"></i> Pá-So do 5:00</p>
-                        <p class="flex items-center text-zinc-300"><i class="fa-solid fa-phone text-emerald-400 w-6"></i> <a href="tel:+420739955355" class="hover:text-white transition">739 955 355 (VIP)</a></p>
-                        <p class="flex items-center text-zinc-300"><i class="fa-solid fa-globe text-zinc-400 w-6"></i> <a href="https://www.wasabiclub.cz" target="_blank" class="hover:text-white transition">wasabiclub.cz</a></p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="glass-panel p-6 bg-amber-950/20 border border-amber-900/30">
-                <h3 class="font-bold text-amber-500 mb-2"><i class="fa-solid fa-train mr-2"></i> Logistika z Brna</h3>
-                <p class="text-sm text-zinc-400">Přímý vlak. Od nádraží je to k podzemí i Enotéce cca 20 minut pěšky městem. Bez nutnosti taxi.</p>
-            </div>
-        </div>
-
-        <!-- ZÁLOŽKA: PLÁN B - MIKULOV -->
-        <div id="mikulov" class="tab-content space-y-6">
-            <div class="glass-panel p-5 border-l-4 border-purple-500 mb-6 bg-purple-950/20">
-                <h2 class="text-xl font-bold text-purple-400">Plán B: Mikulov (Kola & Underground)</h2>
-                <p class="text-zinc-300 mt-1 text-sm">Klasická moravská atmosféra (Pálava, sklep, cimbál) zakončená klubem u zámku.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Denní mise</h3>
-                    <ul class="space-y-5">
-                        <li class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                <i class="fa-solid fa-bolt text-amber-400"></i>
-                            </div>
-                            <div>
-                                <strong class="block text-zinc-100">11:00 - Útok na E-kolech</strong>
-                                <span class="text-sm text-zinc-400 block mt-1">Projedeme Pálavu bez propocených triček. Kola nám půjčí.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                <i class="fa-solid fa-music text-purple-400"></i>
-                            </div>
-                            <div>
-                                <strong class="block text-zinc-100">16:00 - Sklep & Koryta jídla</strong>
-                                <span class="text-sm text-zinc-400 block mt-1">Zavřeme se u Volaříka (nebo jinde). Maso, víno a cimbálovka jen pro nás.</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Noční cíl: Club No.292</h3>
-                    <p class="text-sm text-zinc-400 mb-4">Klub spojující tradiční vinný sklep (nahoře) s moderním betonovým techno parketem (dole).</p>
-                    
-                    <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl text-sm space-y-3">
-                        <p class="flex items-center text-zinc-300"><i class="fa-solid fa-location-dot text-purple-500 w-6"></i> Náměstí 29/2, Mikulov</p>
-                        <p class="flex items-center text-zinc-300"><i class="fa-solid fa-clock text-blue-400 w-6"></i> Pá-So do 4:00</p>
-                        <p class="flex items-center text-zinc-300"><i class="fa-brands fa-facebook text-blue-500 w-6"></i> <a href="https://www.facebook.com/Klub292/" target="_blank" class="hover:text-white transition">Facebook Club 292</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-panel p-6 bg-amber-950/20 border border-amber-900/30">
-                <h3 class="font-bold text-amber-500 mb-2"><i class="fa-solid fa-train mr-2"></i> Logistika z Brna</h3>
-                <p class="text-sm text-zinc-400">Vlakem s rychlým přestupem v Břeclavi. Z nádraží je to kousek, v Mikulově už chodíme jen pěšky.</p>
-            </div>
-        </div>
-
-        <!-- ZÁLOŽKA: PLÁN C - ZAJEČÍ -->
-        <div id="zajeci" class="tab-content space-y-6">
-            <div class="glass-panel p-5 border-l-4 border-orange-500 mb-6 bg-orange-950/20">
-                <h2 class="text-xl font-bold text-orange-400">Plán C: Zaječí (Záloha)</h2>
-                <p class="text-zinc-300 mt-1 text-sm">Lokace, kde už Honza byl. Je to sázka na jistotu, ale ztrácíme moment překvapení.</p>
-            </div>
-
-            <div class="glass-panel rounded-2xl overflow-hidden shadow-lg shadow-orange-500/10 grayscale-[20%] opacity-90">
-                <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
-                    <div class="absolute bottom-4 left-6">
-                        <span class="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider mb-2 inline-block">Známé prostředí</span>
-                        <h2 class="text-3xl font-bold text-white">Retro Music Club Zaječí</h2>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <p class="text-gray-300 mb-6">Klub u Vinařství U Kapličky. Ideální kombinace ubytování, vína a klubu na jednom místě, ale jak víme, <strong class="text-orange-400">ženich už tento formát zná</strong>. Volíme pouze v případě, pokud Plán A i Plán B padne.</p>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-gray-800 p-4 rounded-xl text-center border border-gray-700">
-                            <i class="fa-solid fa-clock text-gray-400 text-2xl mb-2"></i>
-                            <div class="text-xs text-gray-400 uppercase">Otvíračka</div>
-                            <div class="font-bold">Pá & So od 21:00</div>
-                        </div>
-                        <div class="bg-gray-800 p-4 rounded-xl text-center border border-gray-700">
-                            <i class="fa-solid fa-ticket text-orange-400 text-2xl mb-2"></i>
-                            <div class="text-xs text-gray-400 uppercase">Vstupné</div>
-                            <div class="font-bold">cca 150 - 200 Kč</div>
-                        </div>
-                        <div class="bg-gray-800 p-4 rounded-xl text-center border border-gray-700">
-                            <i class="fa-solid fa-couch text-amber-500 text-2xl mb-2"></i>
-                            <div class="text-xs text-gray-400 uppercase">VIP Box</div>
-                            <div class="font-bold">Nutná rezervace</div>
-                        </div>
-                        <div class="bg-gray-800 p-4 rounded-xl text-center border border-gray-700">
-                            <i class="fa-solid fa-train text-green-400 text-2xl mb-2"></i>
-                            <div class="text-xs text-gray-400 uppercase">Doprava</div>
-                            <div class="font-bold text-green-400">Výborná</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ZÁLOŽKA: TIPY A NÁPADY (FIREBASE) -->
+        <!-- ZÁLOŽKA: TIPY A NÁPADY -->
         <div id="napady" class="tab-content space-y-6">
             <div class="glass-panel p-6">
                 <div class="flex justify-between items-center mb-6 border-b border-zinc-700 pb-4">
                     <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-fire text-amber-500 mr-2"></i>Nástěnka nápadů</h2>
                     <span id="db-status-text" class="text-xs font-mono px-3 py-1 rounded-full bg-zinc-800 text-red-400 border border-zinc-700"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Připojuji...</span>
                 </div>
-                
-                <p class="text-sm text-zinc-400 mb-6">Házejte sem cokoliv: jaký alkohol nakoupit, úkoly pro ženicha na večer do klubu, nebo kdo vezme reprák.</p>
-
                 <form id="idea-form" class="flex flex-col md:flex-row gap-3 mb-8">
                     <input type="text" id="author-input" placeholder="Tvé jméno..." class="px-4 py-3 bg-zinc-900/80 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition md:w-1/4 placeholder-zinc-600 shadow-inner" required>
                     <input type="text" id="idea-input" placeholder="Tvůj nápad..." class="px-4 py-3 bg-zinc-900/80 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition md:w-3/4 placeholder-zinc-600 shadow-inner" required>
                     <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white px-8 py-3 rounded-xl font-bold transition shadow-[0_0_15px_rgba(225,29,72,0.4)] whitespace-nowrap"><i class="fa-solid fa-paper-plane mr-2"></i>Odeslat</button>
                 </form>
-
                 <div id="ideas-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
-                    <div class="text-center text-zinc-500 py-8" id="ideas-loading">
-                        <i class="fa-solid fa-satellite-dish text-2xl mb-2"></i><br>Lovím nápady z cloudu...
-                    </div>
+                    <div class="text-center text-zinc-500 py-8" id="ideas-loading"><i class="fa-solid fa-satellite-dish text-2xl mb-2"></i><br>Lovím nápady z cloudu...</div>
                 </div>
             </div>
         </div>
@@ -442,33 +478,20 @@
     <!-- Mobilní spodní navigace -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t border-zinc-800 flex justify-between items-center pb-safe pt-2 z-50 px-1 shadow-[0_-10px_20px_rgba(0,0,0,0.5)] overflow-x-auto">
         <button onclick="switchTab('prehled')" id="mob-btn-prehled" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-rose-500 transition duration-200 min-w-[55px]">
-            <i class="fa-solid fa-gauge-high text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Domů</span>
+            <i class="fa-solid fa-gauge-high text-xl mb-1"></i><span class="text-[10px] font-bold">Domů</span>
         </button>
         <button onclick="switchTab('ucast')" id="mob-btn-ucast" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
-            <i class="fa-solid fa-clipboard-user text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Účast</span>
+            <i class="fa-solid fa-clipboard-user text-xl mb-1"></i><span class="text-[10px] font-bold">Účast</span>
         </button>
         <button onclick="switchTab('anketa')" id="mob-btn-anketa" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
-            <i class="fa-solid fa-square-poll-vertical text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Anketa</span>
+            <i class="fa-solid fa-square-poll-vertical text-xl mb-1"></i><span class="text-[10px] font-bold">Anketa</span>
         </button>
-        <button onclick="switchTab('znojmo')" id="mob-btn-znojmo" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
-            <i class="fa-solid fa-wine-bottle text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Znojmo</span>
-        </button>
-        <button onclick="switchTab('mikulov')" id="mob-btn-mikulov" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
-            <i class="fa-solid fa-bicycle text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Mikulov</span>
-        </button>
-        <button onclick="switchTab('zajeci')" id="mob-btn-zajeci" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
-            <i class="fa-solid fa-clock-rotate-left text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Zaječí</span>
+        <button onclick="switchTab('plany')" id="mob-btn-plany" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
+            <i class="fa-solid fa-map-location-dot text-xl mb-1"></i><span class="text-[10px] font-bold">Plány</span>
         </button>
         <button onclick="switchTab('napady')" id="mob-btn-napady" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 relative min-w-[55px]">
             <span id="mob-db-dot" class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
-            <i class="fa-solid fa-comment-dots text-xl mb-1"></i>
-            <span class="text-[10px] font-bold">Nápady</span>
+            <i class="fa-solid fa-comment-dots text-xl mb-1"></i><span class="text-[10px] font-bold">Nápady</span>
         </button>
     </nav>
 
@@ -526,7 +549,6 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // UI status aktualizace
                 const dbStatusText = document.getElementById('db-status-text');
                 if(dbStatusText) {
                     dbStatusText.innerHTML = `<span class="text-emerald-400"><i class="fa-solid fa-link mr-1"></i> Live</span>`;
@@ -563,7 +585,6 @@
                     });
                 });
 
-                // Zpřístupnění funkcí pro Úkoly do globálního window objektu
                 window.addTask = async function(e) {
                     e.preventDefault();
                     const inp = document.getElementById('new-task-input');
@@ -571,12 +592,8 @@
                     await addDoc(collection(db, "ukoly"), { text: inp.value.trim(), done: false, timestamp: serverTimestamp() });
                     inp.value = '';
                 };
-                window.toggleTask = async function(id, done) {
-                    await updateDoc(doc(db, "ukoly", id), { done });
-                };
-                window.deleteTask = async function(id) {
-                    if(confirm("Opravdu smazat úkol?")) await deleteDoc(doc(db, "ukoly", id));
-                };
+                window.toggleTask = async function(id, done) { await updateDoc(doc(db, "ukoly", id), { done }); };
+                window.deleteTask = async function(id) { if(confirm("Opravdu smazat úkol?")) await deleteDoc(doc(db, "ukoly", id)); };
                 window.editTask = async function(id, oldText) {
                     const newText = prompt("Upravit úkol:", oldText);
                     if(newText !== null && newText.trim() !== "" && newText !== oldText) {
@@ -602,11 +619,8 @@
                             if (name === "Honza (Ženich)") {
                                 statusBadge = '<span class="px-2 py-0.5 bg-amber-600/20 text-amber-400 border border-amber-500/30 rounded text-xs font-bold"><i class="fa-solid fa-crown mr-1"></i>Ženich</span>';
                             } else if (info) {
-                                if (info.status === 'ano') {
-                                    statusBadge = '<span class="px-2 py-0.5 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 rounded text-xs font-bold"><i class="fa-solid fa-check mr-1"></i>Jede</span>';
-                                } else if (info.status === 'ne') {
-                                    statusBadge = '<span class="px-2 py-0.5 bg-red-600/20 text-red-400 border border-red-500/30 rounded text-xs font-bold"><i class="fa-solid fa-xmark mr-1"></i>Nejede</span>';
-                                }
+                                if (info.status === 'ano') statusBadge = '<span class="px-2 py-0.5 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 rounded text-xs font-bold"><i class="fa-solid fa-check mr-1"></i>Jede</span>';
+                                else if (info.status === 'ne') statusBadge = '<span class="px-2 py-0.5 bg-red-600/20 text-red-400 border border-red-500/30 rounded text-xs font-bold"><i class="fa-solid fa-xmark mr-1"></i>Nejede</span>';
                                 if (info.note) noteHtml = `<span class="text-xs text-zinc-400 italic block mt-1"><i class="fa-solid fa-comment-dots mr-1"></i>${info.note}</span>`;
                             }
 
@@ -618,7 +632,7 @@
                     }
                 });
 
-                // === ANKETA (Dynamická) ===
+                // === ANKETA ===
                 let currentPollOptions = [];
                 let allVotes = [];
 
@@ -648,32 +662,21 @@
                     });
                 }
 
-                // Načtení nastavení ankety
                 onSnapshot(doc(db, "nastaveni", "anketa"), (docSnap) => {
                     let data = { question: "Délka akce", deadline: "20. 6. 2026", options: ["Od Pátku do Neděle", "Pátek - Sobota", "Sobota - Neděle"] };
-                    if(docSnap.exists()) {
-                        data = docSnap.data();
-                    } else {
-                        // Vytvořit výchozí, pokud neexistuje
-                        setDoc(doc(db, "nastaveni", "anketa"), data);
-                    }
+                    if(docSnap.exists()) { data = docSnap.data(); } else { setDoc(doc(db, "nastaveni", "anketa"), data); }
 
-                    // UI Ankety
                     document.getElementById('poll-title-text').innerText = data.question;
                     document.getElementById('poll-deadline-text').innerHTML = `<i class="fa-solid fa-stopwatch mr-1"></i>Hlasovat do: ${data.deadline}`;
                     
-                    // UI Editoru
                     document.getElementById('ep-question').value = data.question;
                     document.getElementById('ep-deadline').value = data.deadline;
                     
                     const epList = document.getElementById('ep-options-list');
                     epList.innerHTML = '';
                     currentPollOptions = data.options || [];
-                    currentPollOptions.forEach((opt) => {
-                        addOptionToEditor(opt);
-                    });
+                    currentPollOptions.forEach((opt) => { addOptionToEditor(opt); });
 
-                    // Select pro hlasování
                     const voteSelect = document.getElementById('poll-vote');
                     voteSelect.innerHTML = '<option value="" disabled selected>Vyber možnost...</option>';
                     currentPollOptions.forEach(opt => {
@@ -684,14 +687,12 @@
                     renderPollResults();
                 });
 
-                // Načtení hlasů
                 onSnapshot(collection(db, "anketa_hlasy"), (snap) => {
                     allVotes = [];
                     snap.forEach(d => allVotes.push({...d.data(), id: d.id}));
                     renderPollResults();
                 });
 
-                // Editor ankety - Otevření/Zavření
                 const toggleBtn = document.getElementById('toggle-poll-edit');
                 const editPanel = document.getElementById('poll-edit-panel');
                 const cancelBtn = document.getElementById('ep-cancel');
@@ -699,7 +700,6 @@
                 if(toggleBtn) toggleBtn.onclick = () => editPanel.classList.toggle('hidden');
                 if(cancelBtn) cancelBtn.onclick = () => editPanel.classList.add('hidden');
 
-                // Editor ankety - Přidání možnosti
                 function addOptionToEditor(val = "") {
                     const div = document.createElement('div');
                     div.className = "flex gap-2 poll-opt-row";
@@ -711,11 +711,9 @@
                 }
                 document.getElementById('ep-add-opt').onclick = () => addOptionToEditor();
 
-                // Editor ankety - Uložení
                 document.getElementById('ep-save').onclick = async () => {
                     const btn = document.getElementById('ep-save');
                     btn.disabled = true; btn.innerText = "Ukládám...";
-                    
                     const q = document.getElementById('ep-question').value || "Anketa";
                     const d = document.getElementById('ep-deadline').value || "-";
                     const opts = Array.from(document.querySelectorAll('.poll-opt-row input')).map(i => i.value.trim()).filter(v => v !== "");
@@ -723,13 +721,10 @@
                     try {
                         await setDoc(doc(db, "nastaveni", "anketa"), { question: q, deadline: d, options: opts });
                         editPanel.classList.add('hidden');
-                    } catch (e) {
-                        alert("Nepodařilo se uložit anketu.");
-                    }
+                    } catch (e) { alert("Nepodařilo se uložit anketu."); }
                     btn.disabled = false; btn.innerText = "Uložit Anketu";
                 };
 
-                // Odeslání Hlasu
                 const pollForm = document.getElementById('poll-form');
                 if (pollForm) {
                     pollForm.addEventListener('submit', async (e) => {
@@ -748,9 +743,8 @@
                                 btn.innerHTML = 'Odeslat Hlas';
                                 btn.classList.replace('bg-emerald-600', 'bg-blue-600');
                             }, 3000);
-                        } catch (error) {
-                            alert("Chyba při hlasování."); btn.innerHTML = 'Odeslat Hlas';
-                        } finally { btn.disabled = false; }
+                        } catch (error) { alert("Chyba při hlasování."); btn.innerHTML = 'Odeslat Hlas'; } 
+                        finally { btn.disabled = false; }
                     });
                 }
 
@@ -782,7 +776,6 @@
                         });
                     });
                 });
-
             }
         });
 
@@ -803,9 +796,8 @@
                     btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Potvrzeno!';
                     btn.classList.replace('bg-emerald-600', 'bg-blue-600');
                     setTimeout(() => { btn.innerHTML = 'Potvrdit Účast'; btn.classList.replace('bg-blue-600', 'bg-emerald-600'); }, 3000);
-                } catch (error) {
-                    alert("Nepodařilo se uložit účast."); btn.innerHTML = 'Potvrdit Účast';
-                } finally { btn.disabled = false; }
+                } catch (error) { alert("Nepodařilo se uložit účast."); btn.innerHTML = 'Potvrdit Účast'; } 
+                finally { btn.disabled = false; }
             });
         }
 
@@ -821,16 +813,14 @@
                 try {
                     await addDoc(collection(db, "napady"), { author: author, text: text, timestamp: serverTimestamp() });
                     document.getElementById('idea-input').value = '';
-                } catch (error) {
-                    alert("Nepodařilo se odeslat.");
-                } finally {
-                    btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>Odeslat';
-                }
+                } catch (error) { alert("Nepodařilo se odeslat."); } 
+                finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>Odeslat'; }
             });
         }
     </script>
 
     <script>
+        // Přepínání hlavních záložek
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.desk-tab-btn').forEach(el => {
@@ -852,6 +842,25 @@
             if(mBtn) {
                 mBtn.classList.remove('text-zinc-500', 'hover:text-zinc-300');
                 mBtn.classList.add('text-rose-500'); 
+            }
+        }
+
+        // Přepínání podzáložek u Plánů
+        function switchSubTab(subTabId) {
+            document.querySelectorAll('.sub-tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.sub-tab-btn').forEach(el => {
+                el.className = 'sub-tab-btn bg-zinc-800/80 text-zinc-400 hover:text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap';
+            });
+            
+            document.getElementById(subTabId).classList.add('active');
+            
+            const btn = document.getElementById('btn-' + subTabId);
+            if(btn) {
+                btn.classList.remove('bg-zinc-800/80', 'text-zinc-400', 'hover:text-white');
+                if(subTabId === 'sub-zajeci') btn.classList.add('bg-orange-600', 'text-white', 'shadow-md', 'font-bold');
+                if(subTabId === 'sub-znojmo') btn.classList.add('bg-rose-600', 'text-white', 'shadow-md', 'font-bold');
+                if(subTabId === 'sub-mikulov') btn.classList.add('bg-purple-600', 'text-white', 'shadow-md', 'font-bold');
+                if(subTabId === 'sub-praha') btn.classList.add('bg-red-600', 'text-white', 'shadow-md', 'font-bold');
             }
         }
 
