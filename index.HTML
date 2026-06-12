@@ -72,7 +72,7 @@
         <nav class="hidden md:flex max-w-5xl mx-auto px-4 overflow-x-auto space-x-2 py-3">
             <button onclick="switchTab('prehled')" id="desk-btn-prehled" class="desk-tab-btn bg-rose-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg transition"><i class="fa-solid fa-gauge-high mr-2"></i>Dashboard</button>
             <button onclick="switchTab('ucast')" id="desk-btn-ucast" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-clipboard-user mr-2"></i>Prezenčka</button>
-            <button onclick="switchTab('anketa')" id="desk-btn-anketa" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-square-poll-vertical mr-2"></i>Anketa</button>
+            <button onclick="switchTab('anketa')" id="desk-btn-anketa" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-layer-group mr-2"></i>Ankety</button>
             <button onclick="switchTab('plany')" id="desk-btn-plany" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-map-location-dot mr-2"></i>Plány</button>
             <button onclick="switchTab('napady')" id="desk-btn-napady" class="desk-tab-btn text-zinc-400 hover:bg-zinc-800 px-5 py-2.5 rounded-xl font-semibold transition"><i class="fa-solid fa-comment-dots mr-2"></i>Nápady <span id="desk-db-dot" class="inline-block w-2 h-2 bg-red-500 rounded-full ml-1"></span></button>
         </nav>
@@ -94,9 +94,9 @@
                 
                 <div onclick="switchTab('anketa')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 group-hover:bg-blue-500/20 transition">
-                        <i class="fa-solid fa-square-poll-vertical text-blue-400 text-xl md:text-2xl"></i>
+                        <i class="fa-solid fa-layer-group text-blue-400 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="font-bold text-sm md:text-base text-zinc-100">Anketa</h3>
+                    <h3 class="font-bold text-sm md:text-base text-zinc-100">Ankety</h3>
                     <span class="text-xs text-blue-400 mt-1">Hlasování</span>
                 </div>
 
@@ -170,8 +170,6 @@
 
         <!-- ZÁLOŽKA: PLÁNY LOKACÍ -->
         <div id="plany" class="tab-content space-y-6">
-            
-            <!-- Navigace mezi plány -->
             <div class="glass-panel p-3 flex overflow-x-auto gap-2 scrollbar-hide border-b border-zinc-700/50">
                 <button onclick="switchSubTab('sub-zajeci')" id="btn-sub-zajeci" class="sub-tab-btn bg-orange-600 text-white shadow-md px-5 py-2.5 rounded-lg text-sm font-bold whitespace-nowrap transition"><i class="fa-solid fa-wine-glass mr-2"></i>Plán A: Zaječí</button>
                 <button onclick="switchSubTab('sub-znojmo')" id="btn-sub-znojmo" class="sub-tab-btn bg-zinc-800/80 text-zinc-400 hover:text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap"><i class="fa-solid fa-dungeon mr-2"></i>Plán B: Znojmo</button>
@@ -191,7 +189,6 @@
                         <span id="desc-zajeci-text">Zjištěno, že Honza tu na rozlučce vlastně nebyl! Tím pádem to nepřichází o moment překvapení a stává se z toho top volba na jistotu.</span>
                     </p>
                 </div>
-
                 <div class="glass-panel rounded-2xl overflow-hidden shadow-lg shadow-orange-500/10">
                     <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
@@ -200,25 +197,18 @@
                             <span class="text-orange-400 font-semibold drop-shadow-md">Vinařství U Kapličky</span>
                         </div>
                     </div>
-                    
                     <div class="p-6 grid md:grid-cols-2 gap-6">
                         <div>
                             <p class="text-gray-300 mb-6 text-sm">Ideální kombinace ubytování, špičkového vína a plnohodnotného klubu přímo na jednom místě. Nemusíme řešit noční přejezdy a taxíky.</p>
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="bg-zinc-800/80 p-3 rounded-xl text-center border border-zinc-700">
-                                    <i class="fa-solid fa-clock text-gray-400 text-xl mb-1"></i>
-                                    <div class="text-[10px] text-gray-400 uppercase">Otvíračka</div>
-                                    <div class="font-bold text-sm">Pá & So od 21:00</div>
+                                    <i class="fa-solid fa-clock text-gray-400 text-xl mb-1"></i><div class="text-[10px] text-gray-400 uppercase">Otvíračka</div><div class="font-bold text-sm">Pá & So od 21:00</div>
                                 </div>
                                 <div class="bg-zinc-800/80 p-3 rounded-xl text-center border border-zinc-700">
-                                    <i class="fa-solid fa-couch text-amber-500 text-xl mb-1"></i>
-                                    <div class="text-[10px] text-gray-400 uppercase">VIP Box</div>
-                                    <div class="font-bold text-sm">Nutná rezervace</div>
+                                    <i class="fa-solid fa-couch text-amber-500 text-xl mb-1"></i><div class="text-[10px] text-gray-400 uppercase">VIP Box</div><div class="font-bold text-sm">Nutná rezervace</div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-5 rounded-xl space-y-4 shadow-inner">
                             <div>
                                 <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Web</p>
@@ -243,48 +233,31 @@
                         Plán B: Znojmo (Adrenalin & Moderní klub)
                         <button onclick="editPlanDesc('znojmo')" class="ml-3 text-zinc-500 hover:text-rose-400 transition text-sm"><i class="fa-solid fa-pen"></i></button>
                     </h2>
-                    <p class="text-zinc-300 mt-2 text-sm">
-                        <span id="desc-znojmo-text">Ideální mix fyzické výzvy (podzemí) a velké noční párty ve městě (Enotéka + Wasabi).</span>
-                    </p>
+                    <p class="text-zinc-300 mt-2 text-sm"><span id="desc-znojmo-text">Ideální mix fyzické výzvy (podzemí) a velké noční párty ve městě (Enotéka + Wasabi).</span></p>
                 </div>
-
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="glass-panel p-6">
                         <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Denní mise</h3>
                         <ul class="space-y-5">
                             <li class="flex items-start">
-                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                    <i class="fa-solid fa-helmet-safety text-amber-500"></i>
-                                </div>
-                                <div>
-                                    <strong class="block text-zinc-100">14:00 - Adrenalinové Podzemí</strong>
-                                    <span class="text-sm text-zinc-400 block mt-1">Žádná nuda. Neopreny, voda, čelovky, úzké chodby. Max. pro 10 lidí.</span>
-                                </div>
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700"><i class="fa-solid fa-helmet-safety text-amber-500"></i></div>
+                                <div><strong class="block text-zinc-100">14:00 - Adrenalinové Podzemí</strong><span class="text-sm text-zinc-400 block mt-1">Žádná nuda. Neopreny, voda, čelovky, úzké chodby. Max. pro 10 lidí.</span></div>
                             </li>
                             <li class="flex items-start">
-                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                    <i class="fa-solid fa-robot text-rose-500"></i>
-                                </div>
-                                <div>
-                                    <strong class="block text-zinc-100">17:00 - Enotéka (Výčep vína)</strong>
-                                    <span class="text-sm text-zinc-400 block mt-1">Dostaneme čipové karty na 1500,- a sami si čepujeme z automatů!</span>
-                                </div>
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700"><i class="fa-solid fa-robot text-rose-500"></i></div>
+                                <div><strong class="block text-zinc-100">17:00 - Enotéka (Výčep vína)</strong><span class="text-sm text-zinc-400 block mt-1">Dostaneme čipové karty na 1500,- a sami si čepujeme z automatů!</span></div>
                             </li>
                         </ul>
                     </div>
-
                     <div class="glass-panel p-6">
                         <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Noční cíl: Wasabi Club</h3>
                         <p class="text-sm text-zinc-400 mb-4">Největší multižánrový klub ve Znojmě. Skvělý zvuk, Djs, a vezmeme VIP box.</p>
-                        
-                        <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
                             <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Weby</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-rose-500 w-6"></i> Kovářská 11, 669 02 Znojmo</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8553642N, 16.0506861E</p>
                             <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.wasabiclub.cz" target="_blank" class="hover:text-white transition">Web: Wasabi Club</a></p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.enotekaznojmo.cz/" target="_blank" class="hover:text-white transition">Web: Enotéka Znojmo</a></p>
-                            
                             <div class="pt-2 border-t border-zinc-700/50 mt-2">
                                 <a href="https://mapy.cz/zakladni?q=Kov%C3%A1%C5%99sk%C3%A1%2011%2C%20Znojmo" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
                                     <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
@@ -302,48 +275,31 @@
                         Plán C: Mikulov (Kola & Underground)
                         <button onclick="editPlanDesc('mikulov')" class="ml-3 text-zinc-500 hover:text-purple-400 transition text-sm"><i class="fa-solid fa-pen"></i></button>
                     </h2>
-                    <p class="text-zinc-300 mt-2 text-sm">
-                        <span id="desc-mikulov-text">Klasická moravská atmosféra (Pálava, sklep, cimbál) zakončená klubem u zámku.</span>
-                    </p>
+                    <p class="text-zinc-300 mt-2 text-sm"><span id="desc-mikulov-text">Klasická moravská atmosféra (Pálava, sklep, cimbál) zakončená klubem u zámku.</span></p>
                 </div>
-
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="glass-panel p-6">
                         <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Denní mise</h3>
                         <ul class="space-y-5">
                             <li class="flex items-start">
-                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                    <i class="fa-solid fa-bolt text-amber-400"></i>
-                                </div>
-                                <div>
-                                    <strong class="block text-zinc-100">11:00 - Útok na E-kolech</strong>
-                                    <span class="text-sm text-zinc-400 block mt-1">Projedeme Pálavu bez propocených triček. Kola nám půjčí.</span>
-                                </div>
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700"><i class="fa-solid fa-bolt text-amber-400"></i></div>
+                                <div><strong class="block text-zinc-100">11:00 - Útok na E-kolech</strong><span class="text-sm text-zinc-400 block mt-1">Projedeme Pálavu bez propocených triček. Kola nám půjčí.</span></div>
                             </li>
                             <li class="flex items-start">
-                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700">
-                                    <i class="fa-solid fa-music text-purple-400"></i>
-                                </div>
-                                <div>
-                                    <strong class="block text-zinc-100">16:00 - Sklep & Koryta jídla</strong>
-                                    <span class="text-sm text-zinc-400 block mt-1">Zavřeme se u Volaříka (nebo jinde). Maso, víno a cimbálovka jen pro nás.</span>
-                                </div>
+                                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center mr-4 shrink-0 border border-zinc-700"><i class="fa-solid fa-music text-purple-400"></i></div>
+                                <div><strong class="block text-zinc-100">16:00 - Sklep & Koryta jídla</strong><span class="text-sm text-zinc-400 block mt-1">Zavřeme se u Volaříka (nebo jinde). Maso, víno a cimbálovka jen pro nás.</span></div>
                             </li>
                         </ul>
                     </div>
-
                     <div class="glass-panel p-6">
                         <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Noční cíl: Club No.292</h3>
                         <p class="text-sm text-zinc-400 mb-4">Klub spojující tradiční vinný sklep (nahoře) s moderním betonovým techno parketem (dole).</p>
-                        
-                        <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
                             <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Weby</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-purple-500 w-6"></i> Náměstí 29/2, 692 01 Mikulov</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8074317N, 16.6375089E</p>
                             <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-brands fa-facebook text-emerald-400 w-6"></i> <a href="https://www.facebook.com/Klub292/" target="_blank" class="hover:text-white transition">FB: Club 292</a></p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.vinarstvivolarik.cz/" target="_blank" class="hover:text-white transition">Web: Vinařství Volařík</a></p>
-                            
                             <div class="pt-2 border-t border-zinc-700/50 mt-2">
                                 <a href="https://mapy.cz/zakladni?q=N%C3%A1m%C4%9Bst%C3%AD%2029%2F2%2C%20Mikulov" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
                                     <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
@@ -361,11 +317,8 @@
                         Plán D: Nahulváta do Prahy
                         <button onclick="editPlanDesc('praha')" class="ml-3 text-zinc-500 hover:text-red-400 transition text-sm"><i class="fa-solid fa-pen"></i></button>
                     </h2>
-                    <p class="text-zinc-300 mt-2 text-sm">
-                        <span id="desc-praha-text">Žádné velké plánování. Sedneme na vlak, dojedeme do centra Prahy a vletíme do víru velkoměsta (např. Dlouhá ulice).</span>
-                    </p>
+                    <p class="text-zinc-300 mt-2 text-sm"><span id="desc-praha-text">Žádné velké plánování. Sedneme na vlak, dojedeme do centra Prahy a vletíme do víru velkoměsta (např. Dlouhá ulice).</span></p>
                 </div>
-
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="glass-panel p-6 flex flex-col justify-center relative overflow-hidden">
                         <i class="fa-solid fa-comment-dots absolute -right-6 -bottom-6 text-9xl text-white/5"></i>
@@ -374,19 +327,15 @@
                             <strong>Můj osobní názor:</strong> Myslím si, že Honza, coby požitkář, který má rád klid a dobrou partu, mnohem více ocení tu naši klasiku na Moravě (dobré víno, maso, sklep), než stres a pražský blázinec narvaný turisty. Zvažte to. Ale jako možnost to tu je.
                         </p>
                     </div>
-
                     <div class="glass-panel p-6">
                         <h3 class="text-lg font-bold mb-4 text-white border-b border-zinc-700 pb-2">Cíl úderu: Dlouhá ulice</h3>
                         <p class="text-sm text-zinc-400 mb-4">Epicentrum nočního života. Jeden klub vedle druhého (Roxy, Harley's, Epic kousek vedle).</p>
-                        
-                        <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
                             <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Weby</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-red-500 w-6"></i> Dlouhá ulice, Praha 1</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 50.0903828N, 14.4251642E</p>
                             <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.roxy.cz/" target="_blank" class="hover:text-white transition">Web: Club Roxy</a></p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.harleys.cz/" target="_blank" class="hover:text-white transition">Web: Harley's Bar</a></p>
-
                             <div class="pt-2 border-t border-zinc-700/50 mt-2">
                                 <a href="https://mapy.cz/zakladni?q=Dlouh%C3%A1%20ulice%2C%20Praha" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
                                     <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
@@ -428,66 +377,54 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: ANKETA -->
+        <!-- ZÁLOŽKA: ANKETY (Nová Multi-verze) -->
         <div id="anketa" class="tab-content space-y-6">
-            <div class="glass-panel p-6 border-l-4 border-blue-500 bg-blue-950/10 flex flex-col">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3">
-                    <div class="flex items-center flex-wrap gap-3">
-                        <h2 class="text-xl font-bold text-white flex items-center">
-                            <i class="fa-solid fa-square-poll-vertical text-blue-400 mr-2"></i>
-                            <span id="poll-title-text">Anketa</span>
-                        </h2>
-                        <button id="toggle-poll-edit" class="bg-zinc-800 text-blue-400 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition border border-blue-900/50 shadow-md">
-                            <i class="fa-solid fa-pen-to-square mr-1"></i>Založit / Upravit Anketu
-                        </button>
-                    </div>
-                    <span id="poll-deadline-text" class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_8px_rgba(220,38,38,0.5)] border border-red-400/50">
-                        <i class="fa-solid fa-stopwatch mr-1"></i>Hlasovat do: ...
-                    </span>
-                </div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-3">
+                <h2 class="text-xl font-bold text-white flex items-center">
+                    <i class="fa-solid fa-layer-group text-blue-400 mr-2"></i>
+                    Aktivní Ankety
+                </h2>
+                <button onclick="document.getElementById('new-poll-panel').classList.toggle('hidden')" class="bg-zinc-800 text-blue-400 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl text-sm font-bold transition border border-blue-900/50 shadow-md">
+                    <i class="fa-solid fa-plus mr-2"></i>Vytvořit novou anketu
+                </button>
+            </div>
 
-                <!-- Editor ankety -->
-                <div id="poll-edit-panel" class="hidden mb-6 bg-zinc-900/80 p-5 rounded-xl border border-zinc-600 shadow-inner">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 border-b border-zinc-700 pb-3 gap-3">
-                        <h3 class="text-white font-bold"><i class="fa-solid fa-sliders mr-2"></i>Nastavení Ankety</h3>
-                        <button id="ep-reset-votes" class="text-xs bg-red-950/50 text-red-400 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg border border-red-900/50 transition shadow-sm"><i class="fa-solid fa-trash-can mr-1"></i>Smazat odevzdané hlasy</button>
+            <!-- Panel pro vytvoření nové ankety -->
+            <div id="new-poll-panel" class="hidden glass-panel p-5 border-l-4 border-blue-500 bg-blue-950/10 shadow-inner">
+                <h3 class="text-white font-bold mb-4 border-b border-zinc-700 pb-2"><i class="fa-solid fa-square-poll-vertical mr-2"></i>Založení nové ankety</h3>
+                <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="text-xs text-zinc-400 mb-1 block">Otázka / Téma ankety</label>
+                        <input type="text" id="ep-question" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white text-sm focus:border-blue-500 outline-none" placeholder="Např. Který termín?">
                     </div>
-                    
-                    <div class="grid sm:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="text-xs text-zinc-400 mb-1 block">Otázka / Název ankety</label>
-                            <input type="text" id="ep-question" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white text-sm focus:border-blue-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="text-xs text-zinc-400 mb-1 block">Termín hlasování (text)</label>
-                            <input type="text" id="ep-deadline" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white text-sm focus:border-blue-500 outline-none">
-                        </div>
+                    <div>
+                        <label class="text-xs text-zinc-400 mb-1 block">Termín hlasování (text)</label>
+                        <input type="text" id="ep-deadline" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white text-sm focus:border-blue-500 outline-none" placeholder="Např. do pátku">
                     </div>
-                    <label class="text-xs text-zinc-400 mb-1 block">Možnosti hlasování</label>
-                    <div id="ep-options-list" class="space-y-2 mb-3"></div>
-                    <button id="ep-add-opt" class="text-emerald-400 text-sm hover:text-emerald-300 font-semibold mb-4"><i class="fa-solid fa-plus mr-1"></i> Přidat další možnost</button>
-                    
-                    <div class="flex gap-3">
-                        <button id="ep-save" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-lg text-sm font-bold transition">Uložit Anketu</button>
-                        <button id="ep-cancel" class="bg-zinc-700 hover:bg-zinc-600 text-white px-5 py-2 rounded-lg text-sm transition">Zrušit</button>
-                    </div>
-                    <p class="text-xs text-amber-500 mt-3"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Pokud měníš možnosti (přidáváš/mažeš), nezapomeň přes tlačítko nahoře smazat staré hlasy!</p>
                 </div>
+                <label class="text-xs text-zinc-400 mb-1 block">Možnosti hlasování</label>
+                <div id="ep-options-list" class="space-y-2 mb-3">
+                    <!-- Defaultní prázdná políčka pro novou anketu -->
+                    <div class="flex gap-2 poll-opt-row">
+                        <input type="text" class="flex-1 px-3 py-1.5 bg-zinc-800 border border-zinc-700 rounded text-white text-sm focus:border-blue-500 outline-none" placeholder="Možnost 1">
+                        <button type="button" class="bg-zinc-800 text-red-400 px-3 border border-zinc-700 hover:bg-zinc-700 rounded transition" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="flex gap-2 poll-opt-row">
+                        <input type="text" class="flex-1 px-3 py-1.5 bg-zinc-800 border border-zinc-700 rounded text-white text-sm focus:border-blue-500 outline-none" placeholder="Možnost 2">
+                        <button type="button" class="bg-zinc-800 text-red-400 px-3 border border-zinc-700 hover:bg-zinc-700 rounded transition" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+                <button onclick="addOptionToEditor()" class="text-emerald-400 text-sm hover:text-emerald-300 font-semibold mb-5"><i class="fa-solid fa-plus mr-1"></i> Přidat další možnost</button>
                 
-                <div class="flex flex-col gap-6">
-                    <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-700/50">
-                        <form id="poll-form" class="space-y-3">
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <select id="poll-name" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required><option value="" disabled selected>Kdo jsi?</option></select>
-                                <select id="poll-vote" class="flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required><option value="" disabled selected>Načítám možnosti...</option></select>
-                                <button type="submit" class="sm:w-auto w-full bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2 rounded-lg transition shadow-[0_0_10px_rgba(37,99,235,0.2)] text-sm whitespace-nowrap">Odeslat Hlas</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div id="poll-results-container" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="text-center text-zinc-500 text-sm py-4 col-span-full"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Načítám výsledky...</div>
-                    </div>
+                <div class="flex gap-3">
+                    <button id="ep-save" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl text-sm font-bold transition shadow-lg shadow-blue-500/20">Vytvořit Anketu</button>
+                    <button onclick="document.getElementById('new-poll-panel').classList.add('hidden')" class="bg-zinc-700 hover:bg-zinc-600 text-white px-5 py-2 rounded-xl text-sm transition">Zrušit</button>
                 </div>
+            </div>
+
+            <!-- Kontejner, kam se budou generovat všechny ankety -->
+            <div id="polls-container" class="space-y-6">
+                <div class="text-center text-zinc-500 text-sm py-8"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Načítám ankety...</div>
             </div>
         </div>
 
@@ -519,7 +456,7 @@
             <i class="fa-solid fa-clipboard-user text-xl mb-1"></i><span class="text-[10px] font-bold">Účast</span>
         </button>
         <button onclick="switchTab('anketa')" id="mob-btn-anketa" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
-            <i class="fa-solid fa-square-poll-vertical text-xl mb-1"></i><span class="text-[10px] font-bold">Anketa</span>
+            <i class="fa-solid fa-layer-group text-xl mb-1"></i><span class="text-[10px] font-bold">Ankety</span>
         </button>
         <button onclick="switchTab('plany')" id="mob-btn-plany" class="mob-tab-btn flex-1 flex flex-col items-center py-2 px-1 text-zinc-500 hover:text-zinc-300 transition duration-200 min-w-[55px]">
             <i class="fa-solid fa-map-location-dot text-xl mb-1"></i><span class="text-[10px] font-bold">Plány</span>
@@ -551,33 +488,25 @@
         const auth = getAuth(app);
 
         // Seznam účastníků 
-        const ucastniciList = [
+        window.ucastniciList = [
             "Honza (Ženich)", "Michal Podstavek", "Michal Kašpar", "Pepa Moravec", 
             "Kuba Čtvrtečka", "Patrik Moravec", "Tomáš Pecen", "Kuba Kopecký", 
             "Václav Kříž", "Michal Šritr"
         ];
         
-        // Naplnění selectů
+        // Naplnění prezenčky
         const attNameSelect = document.getElementById('att-name');
-        const pollNameSelect = document.getElementById('poll-name');
-        
-        ucastniciList.forEach(jmeno => {
-            if (jmeno !== "Honza (Ženich)") { 
-                if(attNameSelect) {
-                    const opt = document.createElement('option');
-                    opt.value = jmeno; opt.textContent = jmeno;
+        if(attNameSelect) {
+            window.ucastniciList.forEach(jmeno => {
+                if (jmeno !== "Honza (Ženich)") { 
+                    const opt = document.createElement('option'); opt.value = jmeno; opt.textContent = jmeno;
                     attNameSelect.appendChild(opt);
                 }
-                if(pollNameSelect) {
-                    const opt2 = document.createElement('option');
-                    opt2.value = jmeno; opt2.textContent = jmeno;
-                    pollNameSelect.appendChild(opt2);
-                }
-            }
-        });
+            });
+        }
 
         // Připojení databáze
-        signInAnonymously(auth).catch((error) => {
+        signInAnonymously(auth).catch(() => {
             const el = document.getElementById('db-status-text');
             if(el) el.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Offline`;
         });
@@ -623,13 +552,11 @@
                 
                 // === ÚKOLY ===
                 const tasksListEl = document.getElementById('tasks-list');
-                const qTasks = query(collection(db, "ukoly"), orderBy("timestamp", "asc"));
-                onSnapshot(qTasks, (snap) => {
+                onSnapshot(query(collection(db, "ukoly"), orderBy("timestamp", "asc")), (snap) => {
                     if(!tasksListEl) return;
                     tasksListEl.innerHTML = '';
-                    if(snap.empty) {
-                        tasksListEl.innerHTML = '<li class="text-center text-sm text-zinc-500 italic mt-2">Žádné úkoly. Přidej první!</li>';
-                    }
+                    if(snap.empty) tasksListEl.innerHTML = '<li class="text-center text-sm text-zinc-500 italic mt-2">Žádné úkoly. Přidej první!</li>';
+                    
                     snap.forEach(docSnap => {
                         const data = docSnap.data();
                         const li = document.createElement('li');
@@ -672,7 +599,7 @@
 
                     if (attendanceListEl) {
                         attendanceListEl.innerHTML = '';
-                        ucastniciList.forEach(name => {
+                        window.ucastniciList.forEach(name => {
                             const info = attendanceData[name];
                             let statusBadge = '<span class="px-2 py-0.5 bg-zinc-700 text-zinc-400 rounded text-xs font-bold border border-zinc-600">Nezadáno</span>';
                             let noteHtml = '';
@@ -693,95 +620,131 @@
                     }
                 });
 
-                // === ANKETA ===
-                let currentPollOptions = [];
-                let allVotes = [];
+                // === MULTI-ANKETY ===
+                let pollsData = [];
+                let votesData = [];
 
-                function renderPollResults() {
-                    const resContainer = document.getElementById('poll-results-container');
-                    if(!resContainer) return;
-                    resContainer.innerHTML = '';
+                function renderPolls() {
+                    const container = document.getElementById('polls-container');
+                    if(!container) return;
+                    container.innerHTML = '';
                     
-                    if(currentPollOptions.length === 0) {
-                        resContainer.innerHTML = '<div class="text-zinc-500 text-sm py-4 col-span-full">Anketa zatím nemá žádné možnosti. Nastav je přes ikonu ozubeného kola.</div>';
+                    if(pollsData.length === 0) {
+                        container.innerHTML = '<div class="text-center text-zinc-500 py-10 bg-zinc-900/40 rounded-xl border border-zinc-800 border-dashed"><i class="fa-solid fa-ghost text-3xl mb-3 opacity-50"></i><br>Zatím tu není žádná anketa.</div>';
                         return;
                     }
 
-                    currentPollOptions.forEach((opt, idx) => {
-                        const colorClass = ['blue', 'amber', 'rose', 'emerald', 'purple'][idx % 5];
-                        const votesForOpt = allVotes.filter(v => v.vote === opt).map(v => v.id);
-                        
-                        resContainer.innerHTML += `
-                            <div class="bg-zinc-800/60 p-4 rounded-xl border border-zinc-700/50 flex flex-col">
-                                <div class="flex justify-between items-start mb-2 border-b border-zinc-700 pb-2">
-                                    <h4 class="font-bold text-sm text-zinc-100 pr-2 leading-tight">${opt}</h4>
-                                    <span class="bg-${colorClass}-600 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shrink-0">${votesForOpt.length}</span>
+                    // Options pro výběr jména
+                    let nameOptionsHtml = '<option value="" disabled selected>Kdo jsi?</option>';
+                    window.ucastniciList.forEach(n => {
+                        if(n !== "Honza (Ženich)") nameOptionsHtml += `<option value="${n}">${n}</option>`;
+                    });
+
+                    pollsData.forEach(poll => {
+                        // Options pro hlasování
+                        let pollOptionsHtml = '<option value="" disabled selected>Vyber možnost...</option>';
+                        poll.options.forEach(o => { pollOptionsHtml += `<option value="${o}">${o}</option>`; });
+
+                        // Výsledky ankety
+                        let resultsHtml = '';
+                        poll.options.forEach((opt, idx) => {
+                            const colorClass = ['blue', 'amber', 'rose', 'emerald', 'purple'][idx % 5];
+                            const votesForOpt = votesData.filter(v => v.pollId === poll.id && v.vote === opt).map(v => v.userName);
+                            resultsHtml += `
+                                <div class="bg-zinc-800/60 p-3 rounded-xl border border-zinc-700/50 flex flex-col">
+                                    <div class="flex justify-between items-start mb-2 border-b border-zinc-700 pb-2">
+                                        <h4 class="font-bold text-sm text-zinc-100 pr-2 leading-tight">${opt}</h4>
+                                        <span class="bg-${colorClass}-600 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shrink-0">${votesForOpt.length}</span>
+                                    </div>
+                                    <p class="text-xs text-zinc-400 leading-relaxed italic">${votesForOpt.join(', ') || 'Zatím nikdo'}</p>
                                 </div>
-                                <p class="text-xs text-zinc-400 leading-relaxed italic">${votesForOpt.join(', ') || 'Zatím nikdo'}</p>
+                            `;
+                        });
+
+                        const pollCard = document.createElement('div');
+                        pollCard.className = "glass-panel p-6 border-l-4 border-blue-500 relative";
+                        pollCard.innerHTML = `
+                            <button onclick="deletePoll('${poll.id}')" class="absolute top-4 right-4 text-zinc-600 hover:text-red-500 transition px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                            <div class="pr-10 mb-5">
+                                <h3 class="text-lg font-bold text-white mb-2">${poll.question}</h3>
+                                ${poll.deadline && poll.deadline !== '-' ? `<span class="bg-zinc-800 text-zinc-300 text-xs font-semibold px-3 py-1 rounded-full border border-zinc-600"><i class="fa-solid fa-stopwatch text-amber-500 mr-1"></i>Hlasovat do: ${poll.deadline}</span>` : ''}
+                            </div>
+                            
+                            <!-- Formulář pro hlasování -->
+                            <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-700/50 mb-5">
+                                <form onsubmit="submitVote(event, '${poll.id}')" class="space-y-3">
+                                    <div class="flex flex-col md:flex-row gap-3">
+                                        <select class="vote-name flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required>
+                                            ${nameOptionsHtml}
+                                        </select>
+                                        <select class="vote-option flex-1 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm" required>
+                                            ${pollOptionsHtml}
+                                        </select>
+                                        <button type="submit" class="md:w-auto w-full bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2 rounded-lg transition shadow-md text-sm whitespace-nowrap">Odeslat Hlas</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Výsledky -->
+                            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+                                ${resultsHtml}
                             </div>
                         `;
+                        container.appendChild(pollCard);
                     });
                 }
 
-                onSnapshot(doc(db, "nastaveni", "anketa"), (docSnap) => {
-                    let data = { question: "Délka akce", deadline: "20. 6. 2026", options: ["Od Pátku do Neděle", "Pátek - Sobota", "Sobota - Neděle"] };
-                    if(docSnap.exists()) { data = docSnap.data(); } else { setDoc(doc(db, "nastaveni", "anketa"), data); }
-
-                    document.getElementById('poll-title-text').innerText = data.question;
-                    document.getElementById('poll-deadline-text').innerHTML = `<i class="fa-solid fa-stopwatch mr-1"></i>Hlasovat do: ${data.deadline}`;
-                    
-                    document.getElementById('ep-question').value = data.question;
-                    document.getElementById('ep-deadline').value = data.deadline;
-                    
-                    const epList = document.getElementById('ep-options-list');
-                    epList.innerHTML = '';
-                    currentPollOptions = data.options || [];
-                    currentPollOptions.forEach((opt) => { addOptionToEditor(opt); });
-
-                    const voteSelect = document.getElementById('poll-vote');
-                    voteSelect.innerHTML = '<option value="" disabled selected>Vyber možnost...</option>';
-                    currentPollOptions.forEach(opt => {
-                        const o = document.createElement('option'); o.value = opt; o.textContent = opt;
-                        voteSelect.appendChild(o);
-                    });
-
-                    renderPollResults();
+                // Načítání Anket
+                onSnapshot(query(collection(db, "ankety"), orderBy("timestamp", "desc")), (snap) => {
+                    pollsData = [];
+                    snap.forEach(doc => pollsData.push({id: doc.id, ...doc.data()}));
+                    renderPolls();
                 });
 
-                onSnapshot(collection(db, "anketa_hlasy"), (snap) => {
-                    allVotes = [];
-                    snap.forEach(d => allVotes.push({...d.data(), id: d.id}));
-                    renderPollResults();
+                // Načítání Hlasů ze všech anket
+                onSnapshot(collection(db, "hlasy"), (snap) => {
+                    votesData = [];
+                    snap.forEach(doc => votesData.push({id: doc.id, ...doc.data()}));
+                    renderPolls();
                 });
 
-                // Mazání starých hlasů ankety
-                const resetVotesBtn = document.getElementById('ep-reset-votes');
-                if(resetVotesBtn) {
-                    resetVotesBtn.onclick = async () => {
-                        if(confirm("POZOR! Opravdu chceš smazat VŠECHNY odevzdané hlasy? (Použij, pokud zakládáš úplně novou anketu s novými možnostmi)")) {
-                            resetVotesBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mažu...';
-                            try {
-                                const batchDelete = ucastniciList.map(name => {
-                                    if(name !== "Honza (Ženich)") return deleteDoc(doc(db, "anketa_hlasy", name));
-                                });
-                                await Promise.all(batchDelete);
-                                alert("Všechny hlasy byly smazány. Máš čistý stůl pro novou anketu.");
-                            } catch(e) {
-                                alert("Chyba při mazání hlasů.");
-                            }
-                            resetVotesBtn.innerHTML = '<i class="fa-solid fa-trash-can mr-1"></i>Smazat odevzdané hlasy';
-                        }
-                    };
+                // Smazání ankety
+                window.deletePoll = async function(pollId) {
+                    if(confirm("Opravdu smazat celou tuto anketu?")) {
+                        await deleteDoc(doc(db, "ankety", pollId));
+                    }
                 }
 
-                const toggleBtn = document.getElementById('toggle-poll-edit');
-                const editPanel = document.getElementById('poll-edit-panel');
-                const cancelBtn = document.getElementById('ep-cancel');
-                
-                if(toggleBtn) toggleBtn.onclick = () => editPanel.classList.toggle('hidden');
-                if(cancelBtn) cancelBtn.onclick = () => editPanel.classList.add('hidden');
+                // Odeslání hlasu
+                window.submitVote = async function(e, pollId) {
+                    e.preventDefault();
+                    const form = e.target;
+                    const name = form.querySelector('.vote-name').value;
+                    const vote = form.querySelector('.vote-option').value;
+                    const btn = form.querySelector('button');
+                    
+                    if(!name || !vote || !auth.currentUser) return;
 
-                function addOptionToEditor(val = "") {
+                    btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                    try {
+                        // Unikátní ID hlasu pro konkrétní anketu zaručí, že se starý hlas u této ankety přepíše
+                        await setDoc(doc(db, "hlasy", pollId + "_" + name), {
+                            pollId: pollId, userName: name, vote: vote, timestamp: serverTimestamp()
+                        });
+                        btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Hlasováno';
+                        btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+                        setTimeout(() => {
+                            btn.innerHTML = 'Odeslat Hlas';
+                            btn.classList.replace('bg-emerald-600', 'bg-blue-600');
+                            btn.disabled = false;
+                        }, 2000);
+                    } catch(err) {
+                        alert("Chyba při odesílání hlasu."); btn.disabled = false; btn.innerHTML = 'Odeslat Hlas';
+                    }
+                }
+
+                // Logika editoru nové ankety
+                window.addOptionToEditor = function(val = "") {
                     const div = document.createElement('div');
                     div.className = "flex gap-2 poll-opt-row";
                     div.innerHTML = `
@@ -790,44 +753,34 @@
                     `;
                     document.getElementById('ep-options-list').appendChild(div);
                 }
-                document.getElementById('ep-add-opt').onclick = () => addOptionToEditor();
 
                 document.getElementById('ep-save').onclick = async () => {
                     const btn = document.getElementById('ep-save');
                     btn.disabled = true; btn.innerText = "Ukládám...";
-                    const q = document.getElementById('ep-question').value || "Anketa";
+                    
+                    const q = document.getElementById('ep-question').value || "Nová Anketa";
                     const d = document.getElementById('ep-deadline').value || "-";
                     const opts = Array.from(document.querySelectorAll('.poll-opt-row input')).map(i => i.value.trim()).filter(v => v !== "");
 
+                    if(opts.length === 0) {
+                        alert("Musíš přidat alespoň jednu možnost pro hlasování!");
+                        btn.disabled = false; btn.innerText = "Vytvořit Anketu";
+                        return;
+                    }
+
                     try {
-                        await setDoc(doc(db, "nastaveni", "anketa"), { question: q, deadline: d, options: opts });
-                        editPanel.classList.add('hidden');
-                    } catch (e) { alert("Nepodařilo se uložit anketu."); }
-                    btn.disabled = false; btn.innerText = "Uložit Anketu";
+                        await addDoc(collection(db, "ankety"), { question: q, deadline: d, options: opts, timestamp: serverTimestamp() });
+                        
+                        // Reset formuláře
+                        document.getElementById('new-poll-panel').classList.add('hidden');
+                        document.getElementById('ep-question').value = '';
+                        document.getElementById('ep-deadline').value = '';
+                        document.getElementById('ep-options-list').innerHTML = '';
+                        addOptionToEditor(); addOptionToEditor(); // Připraví dvě prázdná pole na příště
+                    } catch (e) { alert("Nepodařilo se vytvořit anketu."); }
+                    
+                    btn.disabled = false; btn.innerText = "Vytvořit Anketu";
                 };
-
-                const pollForm = document.getElementById('poll-form');
-                if (pollForm) {
-                    pollForm.addEventListener('submit', async (e) => {
-                        e.preventDefault();
-                        const name = document.getElementById('poll-name').value;
-                        const vote = document.getElementById('poll-vote').value;
-                        const btn = pollForm.querySelector('button');
-                        if (!name || !vote || !auth.currentUser) return;
-
-                        btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Ukládám...';
-                        try {
-                            await setDoc(doc(db, "anketa_hlasy", name), { vote: vote, timestamp: serverTimestamp() });
-                            btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Hlasováno!';
-                            btn.classList.replace('bg-blue-600', 'bg-emerald-600');
-                            setTimeout(() => {
-                                btn.innerHTML = 'Odeslat Hlas';
-                                btn.classList.replace('bg-emerald-600', 'bg-blue-600');
-                            }, 3000);
-                        } catch (error) { alert("Chyba při hlasování."); btn.innerHTML = 'Odeslat Hlas'; } 
-                        finally { btn.disabled = false; }
-                    });
-                }
 
                 // === NÁPADY ===
                 const ideasList = document.getElementById('ideas-list');
@@ -860,7 +813,7 @@
             }
         });
 
-        // Formuláře (Prezenčka, Nápady)
+        // Prezenčka a nápady (formuláře)
         const attendanceForm = document.getElementById('attendance-form');
         if (attendanceForm) {
             attendanceForm.addEventListener('submit', async (e) => {
