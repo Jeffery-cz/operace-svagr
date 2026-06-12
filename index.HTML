@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operace Rozlučka - Velitelský můstek</title>
+    <title>Plánování rozloučení se svobodou pro Honzu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -60,10 +60,10 @@
 
     <header class="bg-black/40 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-            <h1 class="text-2xl font-black tracking-wider text-white drop-shadow-md">
-                <i class="fa-solid fa-wine-glass text-rose-500 mr-2"></i> OPERACE ROZLUČKA
+            <h1 class="text-lg md:text-xl lg:text-2xl font-black tracking-wider text-white drop-shadow-md text-center md:text-left leading-tight">
+                <i class="fa-solid fa-wine-glass text-rose-500 mr-2"></i> PLÁNOVÁNÍ ROZLOUČENÍ SE SVOBODOU PRO HONZU
             </h1>
-            <div class="mt-3 md:mt-0 bg-zinc-900/80 px-4 py-2 rounded-xl text-sm md:text-base border border-zinc-700/50 shadow-inner">
+            <div class="mt-3 md:mt-0 bg-zinc-900/80 px-4 py-2 rounded-xl text-sm md:text-base border border-zinc-700/50 shadow-inner whitespace-nowrap">
                 Start akce: <span id="countdown" class="font-mono text-amber-400 font-bold ml-2 tracking-wide drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">Počítám...</span>
             </div>
         </div>
@@ -82,7 +82,6 @@
         
         <!-- ZÁLOŽKA: PŘEHLED (DASHBOARD) -->
         <div id="prehled" class="tab-content active space-y-6">
-            
             <!-- Dlaždice -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
                 <div onclick="switchTab('ucast')" class="dashboard-tile rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group">
@@ -169,7 +168,7 @@
             </div>
         </div>
 
-        <!-- ZÁLOŽKA: PLÁNY LOKACÍ (Nová sjednocená záložka) -->
+        <!-- ZÁLOŽKA: PLÁNY LOKACÍ -->
         <div id="plany" class="tab-content space-y-6">
             
             <!-- Navigace mezi plány -->
@@ -182,11 +181,14 @@
 
             <!-- SUB-TAB: PLÁN A - ZAJEČÍ -->
             <div id="sub-zajeci" class="sub-tab-content active space-y-6">
-                <div class="glass-panel p-5 border-l-4 border-orange-500 bg-orange-950/20">
-                    <h2 class="text-xl font-bold text-orange-400">Plán A: Zaječí (Vinařství & Retro Club)</h2>
+                <div class="glass-panel p-5 border-l-4 border-orange-500 bg-orange-950/20 group">
+                    <h2 class="text-xl font-bold text-orange-400 flex items-center">
+                        Plán A: Zaječí (Vinařství & Retro Club)
+                        <button onclick="editPlanDesc('zajeci')" class="ml-3 text-zinc-500 hover:text-orange-400 transition text-sm"><i class="fa-solid fa-pen"></i></button>
+                    </h2>
                     <p class="text-zinc-200 mt-2 text-sm leading-relaxed">
                         <strong class="text-emerald-400 uppercase text-xs tracking-wider border border-emerald-500/50 px-2 py-0.5 rounded mr-1">Změna & Oprava</strong> 
-                        Zjištěno, že Honza tu na rozlučce vlastně <strong class="text-white">nebyl</strong>! Tím pádem to nepřichází o moment překvapení a stává se z toho top volba na jistotu.
+                        <span id="desc-zajeci-text">Zjištěno, že Honza tu na rozlučce vlastně nebyl! Tím pádem to nepřichází o moment překvapení a stává se z toho top volba na jistotu.</span>
                     </p>
                 </div>
 
@@ -219,9 +221,10 @@
                         <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-5 rounded-xl space-y-4 shadow-inner">
                             <div>
-                                <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                                <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Web</p>
                                 <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-orange-500 w-6"></i> Vinařská 484, 691 05 Zaječí</p>
                                 <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8787094N, 16.7634469E</p>
+                                <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://vinarstviukaplicky.cz/retro-music-club" target="_blank" class="hover:text-white transition">Web: Vinařství U Kapličky</a></p>
                             </div>
                             <div class="pt-2 border-t border-zinc-700">
                                 <a href="https://mapy.cz/zakladni?q=Vina%C5%99stv%C3%AD%20U%20Kapli%C4%8Dky%20Zaje%C4%8D%C3%AD" target="_blank" class="flex justify-center items-center px-4 py-2.5 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold shadow-[0_0_10px_rgba(29,170,42,0.3)]">
@@ -235,9 +238,14 @@
 
             <!-- SUB-TAB: PLÁN B - ZNOJMO -->
             <div id="sub-znojmo" class="sub-tab-content space-y-6">
-                <div class="glass-panel p-5 border-l-4 border-rose-500 bg-rose-950/20">
-                    <h2 class="text-xl font-bold text-rose-400">Plán B: Znojmo (Adrenalin & Moderní klub)</h2>
-                    <p class="text-zinc-300 mt-1 text-sm">Ideální mix fyzické výzvy (podzemí) a velké noční párty ve městě (Enotéka + Wasabi).</p>
+                <div class="glass-panel p-5 border-l-4 border-rose-500 bg-rose-950/20 group">
+                    <h2 class="text-xl font-bold text-rose-400 flex items-center">
+                        Plán B: Znojmo (Adrenalin & Moderní klub)
+                        <button onclick="editPlanDesc('znojmo')" class="ml-3 text-zinc-500 hover:text-rose-400 transition text-sm"><i class="fa-solid fa-pen"></i></button>
+                    </h2>
+                    <p class="text-zinc-300 mt-2 text-sm">
+                        <span id="desc-znojmo-text">Ideální mix fyzické výzvy (podzemí) a velké noční párty ve městě (Enotéka + Wasabi).</span>
+                    </p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -271,9 +279,12 @@
                         
                         <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
-                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Weby</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-rose-500 w-6"></i> Kovářská 11, 669 02 Znojmo</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8553642N, 16.0506861E</p>
+                            <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.wasabiclub.cz" target="_blank" class="hover:text-white transition">Web: Wasabi Club</a></p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.enotekaznojmo.cz/" target="_blank" class="hover:text-white transition">Web: Enotéka Znojmo</a></p>
+                            
                             <div class="pt-2 border-t border-zinc-700/50 mt-2">
                                 <a href="https://mapy.cz/zakladni?q=Kov%C3%A1%C5%99sk%C3%A1%2011%2C%20Znojmo" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
                                     <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
@@ -286,9 +297,14 @@
 
             <!-- SUB-TAB: PLÁN C - MIKULOV -->
             <div id="sub-mikulov" class="sub-tab-content space-y-6">
-                <div class="glass-panel p-5 border-l-4 border-purple-500 bg-purple-950/20">
-                    <h2 class="text-xl font-bold text-purple-400">Plán C: Mikulov (Kola & Underground)</h2>
-                    <p class="text-zinc-300 mt-1 text-sm">Klasická moravská atmosféra (Pálava, sklep, cimbál) zakončená klubem u zámku.</p>
+                <div class="glass-panel p-5 border-l-4 border-purple-500 bg-purple-950/20 group">
+                    <h2 class="text-xl font-bold text-purple-400 flex items-center">
+                        Plán C: Mikulov (Kola & Underground)
+                        <button onclick="editPlanDesc('mikulov')" class="ml-3 text-zinc-500 hover:text-purple-400 transition text-sm"><i class="fa-solid fa-pen"></i></button>
+                    </h2>
+                    <p class="text-zinc-300 mt-2 text-sm">
+                        <span id="desc-mikulov-text">Klasická moravská atmosféra (Pálava, sklep, cimbál) zakončená klubem u zámku.</span>
+                    </p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -322,9 +338,12 @@
                         
                         <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
-                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Weby</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-purple-500 w-6"></i> Náměstí 29/2, 692 01 Mikulov</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 48.8074317N, 16.6375089E</p>
+                            <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-brands fa-facebook text-emerald-400 w-6"></i> <a href="https://www.facebook.com/Klub292/" target="_blank" class="hover:text-white transition">FB: Club 292</a></p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.vinarstvivolarik.cz/" target="_blank" class="hover:text-white transition">Web: Vinařství Volařík</a></p>
+                            
                             <div class="pt-2 border-t border-zinc-700/50 mt-2">
                                 <a href="https://mapy.cz/zakladni?q=N%C3%A1m%C4%9Bst%C3%AD%2029%2F2%2C%20Mikulov" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
                                     <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
@@ -337,9 +356,14 @@
 
             <!-- SUB-TAB: PLÁN D - PRAHA -->
             <div id="sub-praha" class="sub-tab-content space-y-6">
-                <div class="glass-panel p-5 border-l-4 border-red-500 bg-red-950/20">
-                    <h2 class="text-xl font-bold text-red-400">Plán D: Nahulváta do Prahy</h2>
-                    <p class="text-zinc-300 mt-1 text-sm">Žádné velké plánování. Sedneme na vlak, dojedeme do centra Prahy a vletíme do víru velkoměsta (např. Dlouhá ulice).</p>
+                <div class="glass-panel p-5 border-l-4 border-red-500 bg-red-950/20 group">
+                    <h2 class="text-xl font-bold text-red-400 flex items-center">
+                        Plán D: Nahulváta do Prahy
+                        <button onclick="editPlanDesc('praha')" class="ml-3 text-zinc-500 hover:text-red-400 transition text-sm"><i class="fa-solid fa-pen"></i></button>
+                    </h2>
+                    <p class="text-zinc-300 mt-2 text-sm">
+                        <span id="desc-praha-text">Žádné velké plánování. Sedneme na vlak, dojedeme do centra Prahy a vletíme do víru velkoměsta (např. Dlouhá ulice).</span>
+                    </p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -357,9 +381,12 @@
                         
                         <!-- GPS & Adresa Block -->
                         <div class="bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-3 shadow-inner">
-                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace</p>
+                            <p class="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-1">Cílová lokace & Weby</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-location-dot text-red-500 w-6"></i> Dlouhá ulice, Praha 1</p>
                             <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-satellite text-blue-400 w-6"></i> GPS: 50.0903828N, 14.4251642E</p>
+                            <p class="flex items-center text-zinc-200 text-sm mt-2"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.roxy.cz/" target="_blank" class="hover:text-white transition">Web: Club Roxy</a></p>
+                            <p class="flex items-center text-zinc-200 text-sm"><i class="fa-solid fa-globe text-emerald-400 w-6"></i> <a href="https://www.harleys.cz/" target="_blank" class="hover:text-white transition">Web: Harley's Bar</a></p>
+
                             <div class="pt-2 border-t border-zinc-700/50 mt-2">
                                 <a href="https://mapy.cz/zakladni?q=Dlouh%C3%A1%20ulice%2C%20Praha" target="_blank" class="flex justify-center items-center px-4 py-2 bg-[#1DAA2A] hover:bg-[#168820] text-white rounded-lg transition font-bold text-sm shadow-[0_0_10px_rgba(29,170,42,0.3)]">
                                     <i class="fa-solid fa-map-location-dot mr-2"></i> Otevřít v Mapy.cz
@@ -372,7 +399,6 @@
 
         </div>
 
-        <!-- ZÁLOŽKA: PREZENČKA A ANKETA (Zkráceno, kód zůstává beze změn) -->
         <!-- ZÁLOŽKA: PREZENČKA (ÚČAST) -->
         <div id="ucast" class="tab-content space-y-6">
             <div class="glass-panel p-6 border-l-4 border-emerald-500 bg-emerald-950/10 flex flex-col">
@@ -406,18 +432,27 @@
         <div id="anketa" class="tab-content space-y-6">
             <div class="glass-panel p-6 border-l-4 border-blue-500 bg-blue-950/10 flex flex-col">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3">
-                    <h2 class="text-xl font-bold text-white flex items-center">
-                        <i class="fa-solid fa-square-poll-vertical text-blue-400 mr-2"></i>
-                        <span id="poll-title-text">Anketa</span>
-                        <button id="toggle-poll-edit" class="ml-3 text-zinc-500 hover:text-white transition text-sm"><i class="fa-solid fa-gear"></i></button>
-                    </h2>
+                    <div class="flex items-center flex-wrap gap-3">
+                        <h2 class="text-xl font-bold text-white flex items-center">
+                            <i class="fa-solid fa-square-poll-vertical text-blue-400 mr-2"></i>
+                            <span id="poll-title-text">Anketa</span>
+                        </h2>
+                        <button id="toggle-poll-edit" class="bg-zinc-800 text-blue-400 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition border border-blue-900/50 shadow-md">
+                            <i class="fa-solid fa-pen-to-square mr-1"></i>Založit / Upravit Anketu
+                        </button>
+                    </div>
                     <span id="poll-deadline-text" class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_8px_rgba(220,38,38,0.5)] border border-red-400/50">
                         <i class="fa-solid fa-stopwatch mr-1"></i>Hlasovat do: ...
                     </span>
                 </div>
+
                 <!-- Editor ankety -->
                 <div id="poll-edit-panel" class="hidden mb-6 bg-zinc-900/80 p-5 rounded-xl border border-zinc-600 shadow-inner">
-                    <h3 class="text-white font-bold mb-3 border-b border-zinc-700 pb-2"><i class="fa-solid fa-pen-to-square mr-2"></i>Upravit Anketu</h3>
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 border-b border-zinc-700 pb-3 gap-3">
+                        <h3 class="text-white font-bold"><i class="fa-solid fa-sliders mr-2"></i>Nastavení Ankety</h3>
+                        <button id="ep-reset-votes" class="text-xs bg-red-950/50 text-red-400 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg border border-red-900/50 transition shadow-sm"><i class="fa-solid fa-trash-can mr-1"></i>Smazat odevzdané hlasy</button>
+                    </div>
+                    
                     <div class="grid sm:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="text-xs text-zinc-400 mb-1 block">Otázka / Název ankety</label>
@@ -436,7 +471,7 @@
                         <button id="ep-save" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-lg text-sm font-bold transition">Uložit Anketu</button>
                         <button id="ep-cancel" class="bg-zinc-700 hover:bg-zinc-600 text-white px-5 py-2 rounded-lg text-sm transition">Zrušit</button>
                     </div>
-                    <p class="text-xs text-amber-500 mt-3"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Změna možností může zneplatnit již odevzdané hlasy!</p>
+                    <p class="text-xs text-amber-500 mt-3"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Pokud měníš možnosti (přidáváš/mažeš), nezapomeň přes tlačítko nahoře smazat staré hlasy!</p>
                 </div>
                 
                 <div class="flex flex-col gap-6">
@@ -559,6 +594,32 @@
                     const el = document.getElementById(id);
                     if(el) { el.classList.replace('bg-red-500', 'bg-emerald-500'); el.classList.add('shadow-[0_0_5px_rgba(16,185,129,0.8)]'); }
                 });
+
+                // === POPISKY PLÁNŮ ===
+                onSnapshot(doc(db, "nastaveni", "popisky_planu"), (docSnap) => {
+                    const defaults = {
+                        zajeci: "Zjištěno, že Honza tu na rozlučce vlastně nebyl! Tím pádem to nepřichází o moment překvapení a stává se z toho top volba na jistotu.",
+                        znojmo: "Ideální mix fyzické výzvy (podzemí) a velké noční párty ve městě (Enotéka + Wasabi).",
+                        mikulov: "Klasická moravská atmosféra (Pálava, sklep, cimbál) zakončená klubem u zámku.",
+                        praha: "Žádné velké plánování. Sedneme na vlak, dojedeme do centra Prahy a vletíme do víru velkoměsta (např. Dlouhá ulice)."
+                    };
+                    let data = defaults;
+                    if(docSnap.exists()) { data = { ...defaults, ...docSnap.data() }; }
+                    
+                    if(document.getElementById('desc-zajeci-text')) document.getElementById('desc-zajeci-text').innerText = data.zajeci;
+                    if(document.getElementById('desc-znojmo-text')) document.getElementById('desc-znojmo-text').innerText = data.znojmo;
+                    if(document.getElementById('desc-mikulov-text')) document.getElementById('desc-mikulov-text').innerText = data.mikulov;
+                    if(document.getElementById('desc-praha-text')) document.getElementById('desc-praha-text').innerText = data.praha;
+                });
+
+                window.editPlanDesc = async function(planKey) {
+                    const el = document.getElementById('desc-' + planKey + '-text');
+                    const oldText = el ? el.innerText : "";
+                    const newText = prompt("Upravit popisek plánu:", oldText);
+                    if (newText !== null && newText.trim() !== "" && newText !== oldText) {
+                        await setDoc(doc(db, "nastaveni", "popisky_planu"), { [planKey]: newText.trim() }, { merge: true });
+                    }
+                };
                 
                 // === ÚKOLY ===
                 const tasksListEl = document.getElementById('tasks-list');
@@ -692,6 +753,26 @@
                     snap.forEach(d => allVotes.push({...d.data(), id: d.id}));
                     renderPollResults();
                 });
+
+                // Mazání starých hlasů ankety
+                const resetVotesBtn = document.getElementById('ep-reset-votes');
+                if(resetVotesBtn) {
+                    resetVotesBtn.onclick = async () => {
+                        if(confirm("POZOR! Opravdu chceš smazat VŠECHNY odevzdané hlasy? (Použij, pokud zakládáš úplně novou anketu s novými možnostmi)")) {
+                            resetVotesBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mažu...';
+                            try {
+                                const batchDelete = ucastniciList.map(name => {
+                                    if(name !== "Honza (Ženich)") return deleteDoc(doc(db, "anketa_hlasy", name));
+                                });
+                                await Promise.all(batchDelete);
+                                alert("Všechny hlasy byly smazány. Máš čistý stůl pro novou anketu.");
+                            } catch(e) {
+                                alert("Chyba při mazání hlasů.");
+                            }
+                            resetVotesBtn.innerHTML = '<i class="fa-solid fa-trash-can mr-1"></i>Smazat odevzdané hlasy';
+                        }
+                    };
+                }
 
                 const toggleBtn = document.getElementById('toggle-poll-edit');
                 const editPanel = document.getElementById('poll-edit-panel');
